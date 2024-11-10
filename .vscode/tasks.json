@@ -1,0 +1,31 @@
+{
+    "tasks": [
+        {
+            "args": [
+                "build",
+            ],
+            "command": "home-manager",
+            "label": "Rebuild home-manager",
+            "group": {
+                "isDefault": true,
+                "kind": "build",
+            },
+            "problemMatcher": [],
+            "type": "process",
+        },
+        {
+            "args": [
+                "switch",
+            ],
+            "command": "home-manager",
+            "label": "Switch home-manager",
+            "group": {
+                "isDefault": false,
+                "kind": "build",
+            },
+            "problemMatcher": [],
+            "type": "process",
+        },
+    ],
+    "version": "2.0.0",
+}
