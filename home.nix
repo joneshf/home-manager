@@ -20,20 +20,7 @@ in
   };
 
   home = {
-    # Home Manager is pretty good at managing dotfiles. The primary way to manage
-    # plain files is through 'home.file'.
     file = {
-      # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-      # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-      # # symlink to the Nix store copy.
-      # ".screenrc".source = dotfiles/screenrc;
-
-      # # You can also set the file content immediately.
-      # ".gradle/gradle.properties".text = ''
-      #   org.gradle.console=verbose
-      #   org.gradle.daemon.idletimeout=3600000
-      # '';
-
       ".ssh/allowed_signers" = {
         text = ''
           jones3.hardy@gmail.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH
@@ -66,44 +53,6 @@ in
           autocmd FileType make set noexpandtab
         '';
       };
-
-      # "Library/Application Support/nushell/login.nu" = {
-      #   text = ''
-      #     # The `nix` environment isn't setup properly for `nushell`.
-      #     # We add some environment variables that seem like they're going to do the right thing.
-      #     $env.NIX_LINK_NEW = '${home-directory}/.local/state/nix/profile'
-      #     $env.NIX_PROFILES = '/nix/var/nix/profiles/default ${home-directory}/.nix-profile'
-      #     $env.NIX_SSL_CERT_FILE = '/nix/var/nix/profiles/default/etc/ssl/certs/ca-bundle.crt'
-
-      #     # We add some paths so binaries are found.
-      #     $env.PATH = (
-      #       # The PATH starts out as a list.
-      #       | $env.PATH
-      #       # If any of the values happen to have separators in them,
-      #       # we want to flatten them down to be part of the list.
-      #       | split row (char esep)
-      #       # Prepend the binaries we want to have higher precedence than the builtins.
-      #       | prepend [
-      #           '${home-directory}/.nix-profile/bin'
-      #           '/nix/var/nix/profiles/default/bin'
-      #           '/usr/local/bin'
-      #         ]
-      #       # Append other binaries that we want a lower precedence for.
-      #       | append [
-      #           '/usr/sbin'
-      #           '/sbin'
-      #           '/Library/Apple/usr/bin'
-      #           '/usr/local/go/bin'
-      #           '/usr/local/MacGPG2/bin'
-      #           '/Applications/Wireshark.app/Contents/MacOS'
-      #         ]
-      #       # Remove any duplicates we might've added.
-      #       | uniq
-      #       # Remove any blanks we might've added.
-      #       | compact
-      #     )
-      #   '';
-      # };
     };
 
     # Home Manager needs a bit of information about you and the paths it should manage.
@@ -142,19 +91,6 @@ in
       pkgs.yq-go
 
       pkgs.unstable.difftastic
-
-      # # It is sometimes useful to fine-tune packages, for example, by applying
-      # # overrides. You can do that directly here, just don't forget the
-      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-      # # fonts?
-      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
     ];
 
     # Extra directories to add to PATH.
@@ -165,16 +101,7 @@ in
       "${home-directory}/.cargo/bin"
     ];
 
-    # You can also manage environment variables but you will have to manually
-    # source
-    #
-    #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-    #
-    # or
-    #
-    #  /etc/profiles/per-user/joneshf/etc/profile.d/hm-session-vars.sh
-    #
-    # if you don't want to manage your shell through Home Manager.
+    # Environment variables.
     sessionVariables = {
       EDITOR = "vim";
     };
@@ -306,12 +233,6 @@ in
       lfs = {
         enable = true;
       };
-
-      # signing = {
-      #   key = "2ACB6C3376555123";
-
-      #   signByDefault = true;
-      # };
 
       userEmail = "jones3.hardy@gmail.com";
 
