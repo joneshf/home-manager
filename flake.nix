@@ -12,7 +12,6 @@
       type = "github";
     };
 
-
     home-manager = {
       inputs = {
         nixpkgs = {

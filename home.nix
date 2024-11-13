@@ -19,6 +19,17 @@ in
     enable = true;
   };
 
+  # This comes from the `./modules/git-spice` module.
+  git-spice = {
+    enable = true;
+
+    # Since `git-spice` only wants to make a `gs` binary available,
+    # we rename to something that doesn't conflict with `Ghostscript`'s `gs` binary.
+    # More things know about `Ghostscript` than `git-spice`,
+    # so it gets to keep its decades old name.
+    installed-binary-name = "git-spice";
+  };
+
   home = {
     file = {
       ".ssh/allowed_signers" = {
@@ -120,6 +131,7 @@ in
 
   imports = [
     ./modules/crane-completions
+    ./modules/git-spice
     ./modules/nix-env.fish
     ./modules/pdm
     ./modules/restack
