@@ -44,25 +44,7 @@ in
       # We want a `~/.vimrc` file to exist so we don't get confused with what is giving `vim` behavior.
       # So we explicitly write out the file here.
       ".vimrc" = {
-        text = ''
-          set number
-          syntax enable
-
-          set autoindent
-          set smartindent
-
-          set expandtab
-          set shiftwidth=4
-          set smarttab
-          set tabstop=4
-
-          " git
-          autocmd FileType gitcommit set textwidth=72
-          highlight def link gitcommitOverflow Error
-
-          " Makefile
-          autocmd FileType make set noexpandtab
-        '';
+        source = ./home-files/.vimrc;
       };
     };
 
