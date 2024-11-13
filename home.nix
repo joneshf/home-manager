@@ -4,6 +4,12 @@
 }:
 
 let
+  git-email = "jones3.hardy@gmail.com";
+
+  git-signing-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
+
+  git-username = "joneshf";
+
   home-directory = "/Users/${username}";
 
   unfreePackages = [
@@ -34,7 +40,7 @@ in
     file = {
       ".ssh/allowed_signers" = {
         text = ''
-          jones3.hardy@gmail.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH
+          ${git-email} ${git-signing-key}
         '';
       };
 
@@ -220,7 +226,7 @@ in
         };
 
         user = {
-          signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
+          signingKey = git-signing-key;
         };
       };
 
@@ -228,9 +234,9 @@ in
         enable = true;
       };
 
-      userEmail = "jones3.hardy@gmail.com";
+      userEmail = git-email;
 
-      userName = "joneshf";
+      userName = git-username;
     };
 
     go = {
