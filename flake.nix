@@ -79,5 +79,19 @@
           };
         };
       };
+
+      homeManagerModules = {
+        crane-completions = ./modules/crane-completions;
+
+        default = ./modules;
+
+        git-spice = ./modules/git-spice;
+
+        nix-env_fish = ./modules/nix-env.fish;
+
+        pdm = ./modules/pdm;
+
+        restack = ./modules/restack;
+      };
     };
 }
