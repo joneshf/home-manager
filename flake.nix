@@ -63,6 +63,26 @@
 
       type = "github";
     };
+
+    git-hooks_nix = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs-unstable";
+        };
+
+        nixpkgs-stable = {
+          follows = "nixpkgs";
+        };
+      };
+
+      owner = "cachix";
+
+      ref = "master";
+
+      repo = "git-hooks.nix";
+
+      type = "github";
+    };
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
@@ -111,6 +131,26 @@
           restack = ./modules/restack;
         };
       };
+
+    imports = [
+      inputs.git-hooks_nix.flakeModule
+    ];
+
+    perSystem = {
+      pre-commit = {
+        settings = {
+          hooks = {
+            nil = {
+              enable = true;
+            };
+
+            nixpkgs-fmt = {
+              enable = true;
+            };
+          };
+        };
+      };
+    };
 
     systems = inputs.nixpkgs.lib.systems.flakeExposed;
   };
