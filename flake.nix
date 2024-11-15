@@ -12,6 +12,22 @@
       type = "github";
     };
 
+    flake-parts = {
+      inputs = {
+        nixpkgs-lib = {
+          follows = "nixpkgs-unstable";
+        };
+      };
+
+      owner = "hercules-ci";
+
+      ref = "main";
+
+      repo = "flake-parts";
+
+      type = "github";
+    };
+
     home-manager = {
       inputs = {
         nixpkgs = {
@@ -49,49 +65,53 @@
     };
   };
 
-  outputs = inputs:
-    let
-      module-overlays = { ... }: {
-        nixpkgs = {
-          overlays = [
-            overlay-unstable
-          ];
-        };
-      };
-
-      overlay-unstable = final: prev: {
-        unstable = prev.callPackage inputs.nixpkgs-unstable { };
-      };
-    in
-    {
-      homeConfigurations = {
-        "joneshf" = inputs.home-manager.lib.homeManagerConfiguration {
-          # Optionally use extraSpecialArgs to pass through arguments to home.nix.
-
-          modules = [
-            ./home.nix
-            module-overlays
-            inputs._1password-shell-plugins.hmModules.default
-          ];
-
-          pkgs = import inputs.nixpkgs {
-            system = "x86_64-darwin";
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+    flake =
+      let
+        module-overlays = { ... }: {
+          nixpkgs = {
+            overlays = [
+              overlay-unstable
+            ];
           };
         };
+
+        overlay-unstable = final: prev: {
+          unstable = prev.callPackage inputs.nixpkgs-unstable { };
+        };
+      in
+      {
+        homeConfigurations = {
+          "joneshf" = inputs.home-manager.lib.homeManagerConfiguration {
+            # Optionally use extraSpecialArgs to pass through arguments to home.nix.
+
+            modules = [
+              ./home.nix
+              module-overlays
+              inputs._1password-shell-plugins.hmModules.default
+            ];
+
+            pkgs = import inputs.nixpkgs {
+              system = "x86_64-darwin";
+            };
+          };
+        };
+
+        homeManagerModules = {
+          crane-completions = ./modules/crane-completions;
+
+          default = ./modules;
+
+          git-spice = ./modules/git-spice;
+
+          nix-env_fish = ./modules/nix-env.fish;
+
+          pdm = ./modules/pdm;
+
+          restack = ./modules/restack;
+        };
       };
 
-      homeManagerModules = {
-        crane-completions = ./modules/crane-completions;
-
-        default = ./modules;
-
-        git-spice = ./modules/git-spice;
-
-        nix-env_fish = ./modules/nix-env.fish;
-
-        pdm = ./modules/pdm;
-
-        restack = ./modules/restack;
-      };
-    };
+    systems = inputs.nixpkgs.lib.systems.flakeExposed;
+  };
 }
