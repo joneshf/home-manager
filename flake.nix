@@ -28,6 +28,26 @@
       type = "github";
     };
 
+    git-hooks_nix = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs-unstable";
+        };
+
+        nixpkgs-stable = {
+          follows = "nixpkgs";
+        };
+      };
+
+      owner = "cachix";
+
+      ref = "master";
+
+      repo = "git-hooks.nix";
+
+      type = "github";
+    };
+
     home-manager = {
       inputs = {
         nixpkgs = {
@@ -60,26 +80,6 @@
       ref = "nixos-unstable";
 
       repo = "nixpkgs";
-
-      type = "github";
-    };
-
-    git-hooks_nix = {
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs-unstable";
-        };
-
-        nixpkgs-stable = {
-          follows = "nixpkgs";
-        };
-      };
-
-      owner = "cachix";
-
-      ref = "master";
-
-      repo = "git-hooks.nix";
 
       type = "github";
     };
