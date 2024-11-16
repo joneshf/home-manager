@@ -115,7 +115,7 @@
               };
             };
 
-          overlay-unstable = final: prev: { unstable = prev.callPackage inputs.nixpkgs-unstable { }; };
+          overlay-unstable = _final: prev: { unstable = prev.callPackage inputs.nixpkgs-unstable { }; };
         in
         {
           homeConfigurations = {
@@ -165,6 +165,10 @@
           pre-commit = {
             settings = {
               hooks = {
+                deadnix = {
+                  enable = true;
+                };
+
                 markdownlint = {
                   enable = true;
 
