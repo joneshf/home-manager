@@ -3,8 +3,6 @@
 let
   git-email = "jones3.hardy@gmail.com";
 
-  git-signing-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
-
   git-username = "joneshf";
 
   home-directory = "/Users/${username}";
@@ -20,6 +18,17 @@ in
     enable = true;
   };
 
+  # this comes from the `./modules/git` module.
+  git = {
+    signing = {
+      email = git-email;
+
+      enable = true;
+
+      public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
+    };
+  };
+
   # This comes from the `./modules/git-spice` module.
   git-spice = {
     enable = true;
@@ -33,12 +42,6 @@ in
 
   home = {
     file = {
-      ".ssh/allowed_signers" = {
-        text = ''
-          ${git-email} ${git-signing-key}
-        '';
-      };
-
       # When `home-manager` is in control of `vim`,
       # it doesn't create a `~/.vimrc` file.
       # It uses the file in the `nix` store directly without symlinking it.
@@ -116,6 +119,7 @@ in
 
   imports = [
     ./modules/crane-completions
+    ./modules/git
     ./modules/git-spice
     ./modules/nix-env.fish
     ./modules/pdm
@@ -180,19 +184,7 @@ in
         commit = {
           cleanup = "scissors";
 
-          gpgSign = true;
-
           verbose = true;
-        };
-
-        gpg = {
-          format = "ssh";
-
-          ssh = {
-            allowedSignersFile = "${home-directory}/.ssh/allowed_signers";
-
-            program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-          };
         };
 
         help = {
@@ -213,14 +205,6 @@ in
 
         merge = {
           conflictStyle = "diff3";
-        };
-
-        tag = {
-          gpgSign = true;
-        };
-
-        user = {
-          signingKey = git-signing-key;
         };
       };
 
