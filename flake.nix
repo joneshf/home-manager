@@ -147,69 +147,45 @@
           };
         };
 
-      imports = [
-        inputs.git-hooks_nix.flakeModule
-        inputs.treefmt-nix.flakeModule
-      ];
+      imports = [ inputs.git-hooks_nix.flakeModule ];
 
       perSystem =
-        {
-          config,
-          inputs',
-          pkgs,
-          ...
-        }:
+        { pkgs, ... }:
         {
           devShells = {
             default = pkgs.mkShell { };
           };
 
+          formatter = pkgs.nixfmt-rfc-style;
+
           pre-commit = {
             settings = {
               hooks = {
+                markdownlint = {
+                  enable = true;
+
+                  settings = {
+                    configuration = {
+                      MD013 = {
+                        # We'd like to use something like `wrap:inner-sentence`:
+                        # https://cirosantilli.com/markdown-style-guide/#option-wrap-inner-sentence,
+                        # or something related to SemBr: https://sembr.org/.
+                        # But that's stymied in an issue: https://github.com/DavidAnson/markdownlint/issues/298.
+                        #
+                        # We set the line length to something large enough to not get hit by it regularly.
+                        line_length = 1000;
+                      };
+                    };
+                  };
+                };
+
                 nil = {
                   enable = true;
                 };
 
-                treefmt = {
+                nixfmt-rfc-style = {
                   enable = true;
                 };
-              };
-            };
-          };
-
-          treefmt = {
-            package = inputs'.nixpkgs-unstable.legacyPackages.treefmt;
-
-            programs = {
-              mdformat = {
-                enable = true;
-              };
-
-              nixfmt = {
-                enable = true;
-              };
-            };
-
-            projectRootFile = ./flake.nix;
-
-            settings = {
-              global = {
-                excludes = [
-                  "**/.direnv/*"
-                  "**/.envrc"
-                  "**/.git/*"
-                  "**/.gitignore"
-                  "**/result"
-
-                  # We don't have a good formatter for `.vscode` files.
-                  # They're JSON with comments and trailing commas.
-                  # Everything we've tried so far barfs on the combination of those two thigns.
-                  "**/.vscode/*"
-
-                  # There doesn't seem to be a formatter for Vim Script.
-                  "**/.vimrc"
-                ];
               };
             };
           };
