@@ -1,7 +1,4 @@
-{ fetchFromGitHub
-, fishPlugins
-, ...
-}:
+{ fetchFromGitHub, fishPlugins, ... }:
 
 fishPlugins.buildFishPlugin {
   pname = "nix-env.fish";

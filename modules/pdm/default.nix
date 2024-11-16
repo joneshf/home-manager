@@ -1,15 +1,14 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 {
   config = lib.mkIf config.pdm.enable {
     home = {
-      packages = [
-        config.pdm.package
-      ];
+      packages = [ config.pdm.package ];
     };
 
     programs = {

@@ -1,16 +1,16 @@
-{ crane
-, installShellFiles
-, runCommand
-, ...
-}:
-runCommand
-  "crane-completions"
 {
-  nativeBuildInputs = [
-    crane
-    installShellFiles
-  ];
-}
+  crane,
+  installShellFiles,
+  runCommand,
+  ...
+}:
+runCommand "crane-completions"
+  {
+    nativeBuildInputs = [
+      crane
+      installShellFiles
+    ];
+  }
   ''
     installShellCompletion \
         --cmd crane \

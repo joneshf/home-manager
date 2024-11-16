@@ -1,13 +1,14 @@
-{ fetchzip
-, git
-, installShellFiles
+{
+  fetchzip,
+  git,
+  installShellFiles,
   # `git-spice` produces a binary called `gs`,
   # which can conflict with binaries from other packages
   # (like `ghostscript`'s `gs` binary).
   # Setting `installed-binary-name` will install `gs` as a different name.
-, installed-binary-name ? "gs"
-, stdenv
-, ...
+  installed-binary-name ? "gs",
+  stdenv,
+  ...
 }:
 
 let

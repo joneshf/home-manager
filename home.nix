@@ -1,7 +1,4 @@
-{ config
-, pkgs
-, ...
-}:
+{ config, pkgs, ... }:
 
 let
   git-email = "jones3.hardy@gmail.com";
@@ -12,9 +9,7 @@ let
 
   home-directory = "/Users/${username}";
 
-  unfreePackages = [
-    "1password-cli"
-  ];
+  unfreePackages = [ "1password-cli" ];
 
   username = "joneshf";
 in
@@ -90,6 +85,7 @@ in
       pkgs.yq-go
 
       pkgs.unstable.difftastic
+      pkgs.unstable.nixfmt-rfc-style
     ];
 
     # Extra directories to add to PATH.
@@ -132,8 +128,7 @@ in
 
   nixpkgs = {
     config = {
-      allowUnfreePredicate = pkg:
-        builtins.elem (pkgs.lib.getName pkg) unfreePackages;
+      allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) unfreePackages;
     };
   };
 
@@ -147,9 +142,7 @@ in
     _1password-shell-plugins = {
       enable = true;
 
-      plugins = [
-        pkgs.unstable.gh
-      ];
+      plugins = [ pkgs.unstable.gh ];
     };
 
     bat = {

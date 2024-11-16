@@ -1,7 +1,4 @@
-{ fetchzip
-, stdenv
-, ...
-}:
+{ fetchzip, stdenv, ... }:
 
 let
   platform =

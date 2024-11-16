@@ -1,15 +1,14 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 {
   config = lib.mkIf config.crane-completions.enable {
     home = {
-      packages = [
-        (pkgs.callPackage ../../packages/crane-completions { })
-      ];
+      packages = [ (pkgs.callPackage ../../packages/crane-completions { }) ];
     };
   };
 
