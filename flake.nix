@@ -136,7 +136,9 @@
       inputs.git-hooks_nix.flakeModule
     ];
 
-    perSystem = {
+    perSystem = { pkgs, ... }: {
+      formatter = pkgs.nixpkgs-fmt;
+
       pre-commit = {
         settings = {
           hooks = {
