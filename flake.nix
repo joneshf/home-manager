@@ -201,6 +201,14 @@
                   "**/.git/*"
                   "**/.gitignore"
                   "**/result"
+
+                  # We don't have a good formatter for `.vscode` files.
+                  # They're JSON with comments and trailing commas.
+                  # Everything we've tried so far barfs on the combination of those two thigns.
+                  "**/.vscode/*"
+
+                  # There doesn't seem to be a formatter for Vim Script.
+                  "**/.vimrc"
                 ];
               };
             };
