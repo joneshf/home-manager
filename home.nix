@@ -85,6 +85,7 @@ in
       pkgs.yq-go
 
       pkgs.unstable.difftastic
+      pkgs.unstable.git-absorb
       pkgs.unstable.nixfmt-rfc-style
     ];
 
