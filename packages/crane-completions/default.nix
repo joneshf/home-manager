@@ -1,6 +1,7 @@
 { crane
 , installShellFiles
 , runCommand
+, ...
 }:
 runCommand
   "crane-completions"

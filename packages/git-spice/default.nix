@@ -7,6 +7,7 @@
   # Setting `installed-binary-name` will install `gs` as a different name.
 , installed-binary-name ? "gs"
 , stdenv
+, ...
 }:
 
 let

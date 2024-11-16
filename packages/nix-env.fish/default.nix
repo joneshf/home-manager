@@ -1,5 +1,6 @@
 { fetchFromGitHub
 , fishPlugins
+, ...
 }:
 
 fishPlugins.buildFishPlugin {

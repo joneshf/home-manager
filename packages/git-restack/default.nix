@@ -1,4 +1,5 @@
 { writeShellScriptBin
+, ...
 }:
 writeShellScriptBin
   "git-restack"
