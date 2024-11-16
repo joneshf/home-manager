@@ -182,6 +182,10 @@
             package = inputs'.nixpkgs-unstable.legacyPackages.treefmt;
 
             programs = {
+              mdformat = {
+                enable = true;
+              };
+
               nixfmt = {
                 enable = true;
               };
