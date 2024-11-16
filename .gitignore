@@ -1,4 +1,5 @@
 # Project-specific
+.direnv
 result
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,linux,macos,osx,vim,visualstudiocode

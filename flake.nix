@@ -135,6 +135,10 @@
       perSystem =
         { pkgs, ... }:
         {
+          devShells = {
+            default = pkgs.mkShell { };
+          };
+
           formatter = pkgs.nixfmt-rfc-style;
 
           pre-commit = {
