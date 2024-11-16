@@ -169,6 +169,18 @@
                   enable = true;
                 };
 
+                detect-aws-credentials = {
+                  enable = true;
+                };
+
+                detect-private-keys = {
+                  enable = true;
+                };
+
+                forbid-new-submodules = {
+                  enable = true;
+                };
+
                 markdownlint = {
                   enable = true;
 
@@ -192,6 +204,10 @@
                 };
 
                 nixfmt-rfc-style = {
+                  enable = true;
+                };
+
+                typos = {
                   enable = true;
                 };
               };
