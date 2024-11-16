@@ -83,6 +83,23 @@
 
       type = "github";
     };
+
+    treefmt-nix = {
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs-unstable";
+        };
+      };
+
+      owner = "numtide";
+
+      ref = "main";
+
+      repo = "treefmt-nix";
+
+      type = "github";
+    };
+
   };
 
   outputs =
@@ -130,16 +147,22 @@
           };
         };
 
-      imports = [ inputs.git-hooks_nix.flakeModule ];
+      imports = [
+        inputs.git-hooks_nix.flakeModule
+        inputs.treefmt-nix.flakeModule
+      ];
 
       perSystem =
-        { pkgs, ... }:
+        {
+          config,
+          inputs',
+          pkgs,
+          ...
+        }:
         {
           devShells = {
             default = pkgs.mkShell { };
           };
-
-          formatter = pkgs.nixfmt-rfc-style;
 
           pre-commit = {
             settings = {
@@ -148,9 +171,33 @@
                   enable = true;
                 };
 
-                nixfmt-rfc-style = {
+                treefmt = {
                   enable = true;
                 };
+              };
+            };
+          };
+
+          treefmt = {
+            package = inputs'.nixpkgs-unstable.legacyPackages.treefmt;
+
+            programs = {
+              nixfmt = {
+                enable = true;
+              };
+            };
+
+            projectRootFile = ./flake.nix;
+
+            settings = {
+              global = {
+                excludes = [
+                  "**/.direnv/*"
+                  "**/.envrc"
+                  "**/.git/*"
+                  "**/.gitignore"
+                  "**/result"
+                ];
               };
             };
           };
