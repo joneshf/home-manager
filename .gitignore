@@ -1,5 +1,6 @@
 # Project-specific
 .direnv
+.pre-commit-config.yaml
 result
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,linux,macos,osx,vim,visualstudiocode

@@ -150,10 +150,14 @@
       imports = [ inputs.git-hooks_nix.flakeModule ];
 
       perSystem =
-        { pkgs, ... }:
+        { config, pkgs, ... }:
         {
           devShells = {
-            default = pkgs.mkShell { };
+            default = pkgs.mkShell {
+              shellHook = ''
+                ${config.pre-commit.installationScript}
+              '';
+            };
           };
 
           formatter = pkgs.nixfmt-rfc-style;
