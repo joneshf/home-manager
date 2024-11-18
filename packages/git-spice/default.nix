@@ -44,14 +44,6 @@ let
 
   pname = "git-spice";
 
-  src = fetchzip {
-    sha256 = platform.sha256;
-
-    stripRoot = false;
-
-    url = "https://github.com/abhinav/git-spice/releases/download/v${version}/${platform.tarball-basename}";
-  };
-
   version = "0.8.1";
 in
 
@@ -60,7 +52,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -D ${src}/${original-binary-name} $out/bin/${installed-binary-name}
+    install -D $src/${original-binary-name} $out/bin/${installed-binary-name}
     runHook postInstall
   '';
 
@@ -82,7 +74,13 @@ stdenv.mkDerivation {
         --zsh <($out/bin/${installed-binary-name} shell completion zsh)
   '';
 
-  inherit src;
+  src = fetchzip {
+    sha256 = platform.sha256;
+
+    stripRoot = false;
+
+    url = "https://github.com/abhinav/git-spice/releases/download/v${version}/${platform.tarball-basename}";
+  };
 
   inherit version;
 }

@@ -27,12 +27,6 @@ let
 
   pname = "restack";
 
-  src = fetchzip {
-    sha256 = platform.sha256;
-
-    url = "https://github.com/abhinav/restack/releases/download/v${version}/${platform.tarball-basename}";
-  };
-
   version = "0.8.0";
 in
 
@@ -41,13 +35,17 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -D ${src} $out/bin/${pname}
+    install -D $src $out/bin/${pname}
     runHook postInstall
   '';
 
   inherit pname;
 
-  inherit src;
+  src = fetchzip {
+    sha256 = platform.sha256;
+
+    url = "https://github.com/abhinav/restack/releases/download/v${version}/${platform.tarball-basename}";
+  };
 
   inherit version;
 }
