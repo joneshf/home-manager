@@ -13,8 +13,6 @@
 }:
 
 let
-  original-binary-name = "gs";
-
   platform = callPackage ../../lib/for-host-platform.nix { } {
     aarch64-darwin = {
       sha256 = "sha256-MbO0JrR4cBS88fDLD+LfsOMHw+3d3uPZ8ILPTAfEG3s=";
@@ -52,7 +50,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -D $src/${original-binary-name} $out/bin/${installed-binary-name}
+    install -D $src/gs $out/bin/${installed-binary-name}
     runHook postInstall
   '';
 
