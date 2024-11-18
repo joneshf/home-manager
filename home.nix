@@ -89,6 +89,7 @@ in
 
       pkgs.unstable.difftastic
       pkgs.unstable.git-absorb
+      pkgs.unstable.nh
       pkgs.unstable.nixfmt-rfc-style
     ];
 
@@ -103,6 +104,9 @@ in
     # Environment variables.
     sessionVariables = {
       EDITOR = "vim";
+
+      # `nh` needs the location of the Home Manager flake.
+      FLAKE = "${config.xdg.configHome}/home-manager";
     };
 
     # This value determines the Home Manager release that your configuration is
