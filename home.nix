@@ -310,4 +310,22 @@ in
   restack = {
     enable = true;
   };
+
+  targets = {
+    darwin = {
+      defaults = {
+        "com.microsoft.VSCode" = {
+          # Disable special character pop-up,
+          # so holding a key repeats it in VS Code.
+          ApplePressAndHoldEnabled = false;
+        };
+
+        "com.jetbrains.WebStorm" = {
+          # Disable special character pop-up,
+          # so holding a key repeats it in WebStorm.
+          ApplePressAndHoldEnabled = false;
+        };
+      };
+    };
+  };
 }
