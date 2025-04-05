@@ -1,1 +1,4 @@
 set surround
+
+source ~/.intellimacs/spacemacs.vim
+source ~/.intellimacs/which-key.vim

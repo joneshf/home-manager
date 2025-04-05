@@ -46,6 +46,20 @@ in
         source = ./home-files/.ideavimrc;
       };
 
+      ".intellimacs" = {
+        recursive = true;
+
+        source = pkgs.fetchFromGitHub {
+          owner = "MarcoIeni";
+
+          repo = "intellimacs";
+
+          rev = "cf9706cfeaf18e2247ee8f8c8289f1d196ce04b9";
+
+          sha256 = "sha256-uANOwkA9EB3n1Kd+55420LJD7wrc4EDQ7z127HLvM2o=";
+        };
+      };
+
       # When `home-manager` is in control of `vim`,
       # it doesn't create a `~/.vimrc` file.
       # It uses the file in the `nix` store directly without symlinking it.
