@@ -40,6 +40,11 @@ in
     installed-binary-name = "git-spice";
   };
 
+  # This comes from the `./modules/godot` module.
+  godot = {
+    enable = true;
+  };
+
   home = {
     file = {
       ".ideavimrc" = {
@@ -167,6 +172,7 @@ in
     ./modules/crane-completions
     ./modules/git
     ./modules/git-spice
+    ./modules/godot
     ./modules/nix-env.fish
     ./modules/pdm
     ./modules/restack

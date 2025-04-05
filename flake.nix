@@ -156,6 +156,8 @@
 
             git-spice = ./modules/git-spice;
 
+            godot = ./modules/godot;
+
             nix-env_fish = ./modules/nix-env.fish;
 
             pdm = ./modules/pdm;
@@ -178,6 +180,10 @@
           };
 
           formatter = pkgs.nixfmt-rfc-style;
+
+          packages = {
+            godot = pkgs.callPackage ./packages/godot { };
+          };
 
           pre-commit = {
             settings = {
