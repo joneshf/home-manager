@@ -116,6 +116,7 @@ in
       pkgs.pdftk
       pkgs.python311Packages.python-vipaccess
       pkgs.qrencode
+      pkgs.rename
       pkgs.tree
       pkgs.utm
       pkgs.vim
@@ -130,7 +131,9 @@ in
       pkgs.unstable.kubernetes-helm
       pkgs.unstable.nh
       pkgs.unstable.nixfmt-rfc-style
+      pkgs.unstable.nmap
       pkgs.unstable.pv-migrate
+      pkgs.unstable.viddy
     ];
 
     # Extra directories to add to PATH.
