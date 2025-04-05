@@ -1,3 +1,12 @@
+" vim-plug
+call plug#begin()
+
+Plug 'git@github.com:tpope/vim-surround.git', { 'commit': '3d188ed2113431cf8dac77be61b842acb64433d9', }
+
+call plug#end()
+
+" Personal settings
+
 set number
 syntax enable
 

@@ -42,6 +42,10 @@ in
 
   home = {
     file = {
+      ".ideavimrc" = {
+        source = ./home-files/.ideavimrc;
+      };
+
       # When `home-manager` is in control of `vim`,
       # it doesn't create a `~/.vimrc` file.
       # It uses the file in the `nix` store directly without symlinking it.
@@ -49,6 +53,23 @@ in
       # So we explicitly write out the file here.
       ".vimrc" = {
         source = ./home-files/.vimrc;
+      };
+
+      ".vim/autoload/plug.vim" = {
+        source =
+          let
+            src = pkgs.fetchFromGitHub {
+              owner = "junegunn";
+
+              repo = "vim-plug";
+
+              rev = "d80f495fabff8446972b8695ba251ca636a047b0";
+
+              sha256 = "sha256-d8LZYiJzAOtWGIXUJ7788SnJj44nhdZB0mT5QW3itAY=";
+            };
+
+          in
+          "${src}/plug.vim";
       };
     };
 
