@@ -57,7 +57,7 @@
 
       owner = "nix-community";
 
-      ref = "release-24.05";
+      ref = "release-24.11";
 
       repo = "home-manager";
 
@@ -67,7 +67,7 @@
     nixpkgs = {
       owner = "nixos";
 
-      ref = "nixos-24.05";
+      ref = "nixos-24.11";
 
       repo = "nixpkgs";
 

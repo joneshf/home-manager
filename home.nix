@@ -93,7 +93,6 @@ in
     # The home.packages option allows you to install Nix packages into your
     # environment.
     packages = [
-      pkgs.bazel
       pkgs.beancount
       pkgs.crane
       pkgs.docker-credential-helpers
@@ -114,7 +113,6 @@ in
       pkgs.oath-toolkit
       pkgs.pdfchain
       pkgs.pdftk
-      pkgs.python311Packages.python-vipaccess
       pkgs.qrencode
       pkgs.rename
       pkgs.tree
@@ -124,6 +122,7 @@ in
       pkgs.yq-go
 
       pkgs.unstable.awscli2
+      pkgs.unstable.bazel_7
       pkgs.unstable.colima
       pkgs.unstable.difftastic
       pkgs.unstable.git-absorb
@@ -136,6 +135,7 @@ in
       pkgs.unstable.openldap
       pkgs.unstable.opentofu
       pkgs.unstable.pv-migrate
+      pkgs.unstable.python312Packages.python-vipaccess
       pkgs.unstable.viddy
     ];
 
