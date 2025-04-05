@@ -122,10 +122,15 @@ in
       pkgs.yarn
       pkgs.yq-go
 
+      pkgs.unstable.colima
       pkgs.unstable.difftastic
       pkgs.unstable.git-absorb
+      pkgs.unstable.k9s
+      pkgs.unstable.krew
+      pkgs.unstable.kubernetes-helm
       pkgs.unstable.nh
       pkgs.unstable.nixfmt-rfc-style
+      pkgs.unstable.pv-migrate
     ];
 
     # Extra directories to add to PATH.
