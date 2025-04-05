@@ -123,6 +123,7 @@ in
       pkgs.yarn
       pkgs.yq-go
 
+      pkgs.unstable.awscli2
       pkgs.unstable.colima
       pkgs.unstable.difftastic
       pkgs.unstable.git-absorb
@@ -132,6 +133,8 @@ in
       pkgs.unstable.nh
       pkgs.unstable.nixfmt-rfc-style
       pkgs.unstable.nmap
+      pkgs.unstable.openldap
+      pkgs.unstable.opentofu
       pkgs.unstable.pv-migrate
       pkgs.unstable.viddy
     ];
