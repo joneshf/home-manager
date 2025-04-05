@@ -234,6 +234,10 @@ in
       enable = true;
     };
 
+    man = {
+      generateCaches = false;
+    };
+
     nushell = {
       # Trying out Nushell: https://www.nushell.sh/.
       enable = true;
