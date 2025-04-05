@@ -129,7 +129,6 @@ in
       pkgs.unstable.k9s
       pkgs.unstable.krew
       pkgs.unstable.kubernetes-helm
-      pkgs.unstable.nh
       pkgs.unstable.nixfmt-rfc-style
       pkgs.unstable.nmap
       pkgs.unstable.openldap
@@ -150,9 +149,6 @@ in
     # Environment variables.
     sessionVariables = {
       EDITOR = "vim";
-
-      # `nh` needs the location of the Home Manager flake.
-      FLAKE = "${config.xdg.configHome}/home-manager";
     };
 
     # This value determines the Home Manager release that your configuration is
@@ -282,6 +278,15 @@ in
 
     man = {
       generateCaches = false;
+    };
+
+    nh = {
+      enable = true;
+
+      # `nh` needs the location of the Home Manager flake.
+      flake = "${config.xdg.configHome}/home-manager";
+
+      package = pkgs.unstable.nh;
     };
 
     nushell = {
