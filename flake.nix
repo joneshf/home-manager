@@ -183,6 +183,8 @@
 
           packages = {
             godot = pkgs.callPackage ./packages/godot { };
+
+            godot-mono = pkgs.callPackage ./packages/godot-mono { };
           };
 
           pre-commit = {
