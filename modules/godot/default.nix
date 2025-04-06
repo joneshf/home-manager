@@ -13,44 +13,6 @@
         ++ lib.lists.optional config.godot.mono.enable config.godot.mono.package
         ++ [ ];
     };
-
-    launchd = lib.mkIf pkgs.stdenv.isDarwin {
-      agents = {
-        setenv-DOTNET_ROOT = lib.mkIf config.godot.mono.enable {
-          config = {
-            KeepAlive = true;
-
-            ProgramArguments = [
-              "/bin/launchctl"
-              "setenv"
-              "DOTNET_ROOT"
-              "${pkgs.dotnet-sdk}/share/dotnet"
-            ];
-
-            RunAtLoad = true;
-          };
-
-          enable = true;
-        };
-
-        setenv-prepend-PATH = lib.mkIf config.godot.mono.enable {
-          config = {
-            KeepAlive = true;
-
-            ProgramArguments = [
-              "/bin/launchctl"
-              "setenv"
-              "PATH"
-              "${lib.strings.makeBinPath [ pkgs.dotnet-sdk ]}:$(/bin/launchctl getenv PATH)"
-            ];
-
-            RunAtLoad = true;
-          };
-
-          enable = true;
-        };
-      };
-    };
   };
 
   options = {
