@@ -7,7 +7,10 @@ let
 
   home-directory = "/Users/${username}";
 
-  unfreePackages = [ "1password-cli" ];
+  unfreePackages = [
+    "1password-cli"
+    "spotify"
+  ];
 
   username = "joneshf";
 in
@@ -134,13 +137,20 @@ in
       pkgs.unstable.k9s
       pkgs.unstable.krew
       pkgs.unstable.kubernetes-helm
+      pkgs.unstable.moonlight-qt
       pkgs.unstable.nixfmt-rfc-style
       pkgs.unstable.nmap
       pkgs.unstable.openldap
+      pkgs.unstable.openscad
       pkgs.unstable.opentofu
       pkgs.unstable.pv-migrate
       pkgs.unstable.python312Packages.python-vipaccess
+      pkgs.unstable.qbittorrent
+      pkgs.unstable.rectangle
+      pkgs.unstable.spotify
       pkgs.unstable.viddy
+      pkgs.unstable.wireshark
+      pkgs.unstable.zotero
     ];
 
     # Extra directories to add to PATH.
