@@ -73,7 +73,7 @@
 
       owner = "hraban";
 
-      ref = "master";
+      ref = "link-contents";
 
       repo = "mac-app-util";
 
