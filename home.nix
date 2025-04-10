@@ -179,6 +179,7 @@ in
   };
 
   imports = [
+    ./modules/copy-application-bundles
     ./modules/crane-completions
     ./modules/git
     ./modules/git-spice

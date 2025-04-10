@@ -64,22 +64,6 @@
       type = "github";
     };
 
-    mac-app-util = {
-      inputs = {
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-
-      owner = "hraban";
-
-      ref = "link-contents";
-
-      repo = "mac-app-util";
-
-      type = "github";
-    };
-
     nixpkgs = {
       owner = "nixos";
 
@@ -142,7 +126,6 @@
                 ./home.nix
                 module-overlays
                 inputs._1password-shell-plugins.hmModules.default
-                inputs.mac-app-util.homeManagerModules.default
               ];
 
               pkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
