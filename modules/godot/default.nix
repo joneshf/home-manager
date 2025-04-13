@@ -10,7 +10,11 @@
     home = {
       packages =
         [ config.godot.package ]
-        ++ lib.lists.optional config.godot.mono.enable config.godot.mono.package
+        ++ lib.lists.optional config.godot.mono.enable (
+          config.godot.mono.package.override {
+            override-dotnet-sdk = config.godot.mono.override-dotnet-sdk;
+          }
+        )
         ++ [ ];
     };
   };
@@ -22,6 +26,10 @@
       mono = {
         enable = lib.mkEnableOption "mono" // {
           default = true;
+        };
+
+        override-dotnet-sdk = lib.mkPackageOption pkgs [ "dotnetCorePackages" "sdk_8_0" ] {
+          nullable = true;
         };
 
         package =
