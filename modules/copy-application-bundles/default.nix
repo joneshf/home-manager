@@ -40,11 +40,25 @@
             pkgs.runCommand "copy-application-bundles" { } ''
               mkdir $out
 
-              for applicationBundleSymlink in ${application-bundle-symlinks}/Applications/*.app; do
-                applicationBundle="$out/$(basename $applicationBundleSymlink)"
-                mkdir "$applicationBundle"
+              symlinkedApplicationsDirectory=${application-bundle-symlinks}/Applications
+              # Find the first level of Application Bundles no matter how deeply they are nested.
+              # This should find Application Bundles like:
+              # - `/nix/store/abc123-foo/Applications/Some Application.app`
+              # - `/nix/store/abc123-foo/Applications/some/nested/Application.app`
+              #
+              # But not Application Bundles nested inside another Application Bundle:
+              # - `/nix/store/abc123-foo/Applications/Some Application.app/Contents/Frameworks/AnotherApplication.app`
+              shopt -s globstar
+              for applicationBundleSymlink in "$symlinkedApplicationsDirectory"/**/*.app; do
+                # Remove the prefix of the `applicationBundleSymlink`.
+                # This should make transformations like:
+                # - `/nix/store/abc123-foo/Applications/Some Application.app` -> `Some Application.app`
+                # - `/nix/store/abc123-foo/Applications/some/nested/Application.app` -> `some/nested/Application.app`
+                applicationBundle="$out/''${applicationBundleSymlink#"$symlinkedApplicationsDirectory"/}"
+                mkdir --parents "$applicationBundle"
                 ln --symbolic "$applicationBundleSymlink"/* "$applicationBundle"
               done
+              shopt -u globstar
             '';
         };
       };
