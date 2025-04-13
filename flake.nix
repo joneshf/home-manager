@@ -239,10 +239,10 @@
 
           formatter = pkgs.nixfmt-rfc-style;
 
-          packages = {
-            godot = pkgs.callPackage ./packages/godot { };
+          packages = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
+            callPackage = pkgs.callPackage;
 
-            godot-mono = pkgs.callPackage ./packages/godot-mono { };
+            directory = ./packages;
           };
 
           pre-commit = {

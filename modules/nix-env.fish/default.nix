@@ -13,7 +13,7 @@
           {
             name = "nix-env.fish";
 
-            src = (pkgs.callPackage ../../packages/nix-env.fish { }).src;
+            src = (pkgs.callPackage ../../packages/nix-env.fish/package.nix { }).src;
           }
         ];
       };

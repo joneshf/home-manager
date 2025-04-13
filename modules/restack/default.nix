@@ -9,9 +9,9 @@
   config = lib.mkIf config.restack.enable {
     home = {
       packages =
-        [ (pkgs.callPackage ../../packages/restack { }) ]
+        [ (pkgs.callPackage ../../packages/restack/package.nix { }) ]
         ++ lib.lists.optional config.restack.git-restack.enable (
-          pkgs.callPackage ../../packages/git-restack { }
+          pkgs.callPackage ../../packages/git-restack/package.nix { }
         )
         ++ [ ];
     };

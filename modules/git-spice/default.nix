@@ -9,7 +9,7 @@
   config = lib.mkIf config.git-spice.enable {
     home = {
       packages = [
-        (pkgs.callPackage ../../packages/git-spice {
+        (pkgs.callPackage ../../packages/git-spice/package.nix {
           installed-binary-name = config.git-spice.installed-binary-name;
         })
       ];
