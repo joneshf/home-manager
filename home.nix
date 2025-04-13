@@ -151,6 +151,7 @@ in
       pkgs.unstable.colima
       pkgs.unstable.difftastic
       pkgs.unstable.git-absorb
+      pkgs.unstable.jnv
       pkgs.unstable.k9s
       pkgs.unstable.krew
       pkgs.unstable.kubernetes-helm
