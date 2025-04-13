@@ -1,5 +1,5 @@
 {
-  dotnet-sdk,
+  dotnetCorePackages,
   fetchzip,
   lib,
   makeBinaryWrapper,
@@ -23,7 +23,7 @@ in
 
 stdenv.mkDerivation {
   buildInputs = [
-    dotnet-sdk
+    dotnetCorePackages.sdk_8_0
   ];
 
   dontUnpack = true;
@@ -49,8 +49,8 @@ stdenv.mkDerivation {
     makeBinaryWrapper \
       "$out/unpatched/${application-bundle}/Contents/MacOS/${binary-name}" \
       "$out/Applications/${application-bundle}/Contents/MacOS/${binary-name}" \
-      --prefix PATH : ${lib.strings.makeBinPath [ dotnet-sdk ]} \
-      --set DOTNET_ROOT ${dotnet-sdk}/share/dotnet
+      --prefix PATH : ${lib.strings.makeBinPath [ dotnetCorePackages.sdk_8_0 ]} \
+      --set DOTNET_ROOT ${dotnetCorePackages.sdk_8_0}/share/dotnet
     ln --symbolic "$out/Applications/${application-bundle}/Contents/MacOS/${binary-name}" "$out/bin/${pname}"
 
     runHook postInstall
