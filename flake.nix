@@ -204,9 +204,13 @@
           };
 
           homeManagerModules = {
+            copy-application-bundles = ./modules/copy-application-bundles;
+
             crane-completions = ./modules/crane-completions;
 
             default = ./modules;
+
+            git = ./modules/git;
 
             git-spice = ./modules/git-spice;
 
