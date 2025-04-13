@@ -129,6 +129,23 @@ in
       pkgs.yarn
       pkgs.yq-go
 
+      pkgs.brew-nix.arduino-ide
+      pkgs.brew-nix.buckets
+      pkgs.brew-nix.calibre
+      pkgs.brew-nix.chromium
+      pkgs.brew-nix.discord
+      pkgs.brew-nix.duckduckgo
+      pkgs.brew-nix.elgato-stream-deck
+      pkgs.brew-nix.firefox
+      pkgs.brew-nix.freecad
+      pkgs.brew-nix.handbrake
+      pkgs.brew-nix.jetbrains-toolbox
+      pkgs.brew-nix.kicad
+      pkgs.brew-nix.krita
+      pkgs.brew-nix.makemkv
+      pkgs.brew-nix.mqtt-explorer
+      pkgs.brew-nix.obsidian
+
       pkgs.unstable.awscli2
       pkgs.unstable.bazel_7
       pkgs.unstable.colima
