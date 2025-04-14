@@ -187,6 +187,8 @@
           overlay-unstable = _final: prev: { unstable = prev.callPackage inputs.nixpkgs-unstable { }; };
 
           macOS-variation = "sequoia";
+
+          pkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
         in
         {
           homeConfigurations = {
@@ -199,28 +201,14 @@
                 inputs._1password-shell-plugins.hmModules.default
               ];
 
-              pkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
+              inherit pkgs;
             };
           };
 
-          homeManagerModules = {
-            copy-application-bundles = ./modules/copy-application-bundles;
+          homeManagerModules = import ./lib/modules-from-directory-recursive.nix {
+            directory = ./modules;
 
-            crane-completions = ./modules/crane-completions;
-
-            default = ./modules;
-
-            git = ./modules/git;
-
-            git-spice = ./modules/git-spice;
-
-            godot = ./modules/godot;
-
-            nix-env_fish = ./modules/nix-env.fish;
-
-            pdm = ./modules/pdm;
-
-            restack = ./modules/restack;
+            lib = pkgs.lib;
           };
         };
 

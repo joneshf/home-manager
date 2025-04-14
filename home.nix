@@ -16,12 +16,12 @@ let
 in
 
 {
-  # This comes from the `./modules/crane-completions` module.
+  # This comes from the `./modules/crane-completions/module.nix` module.
   crane-completions = {
     enable = true;
   };
 
-  # this comes from the `./modules/git` module.
+  # this comes from the `./modules/git/module.nix` module.
   git = {
     signing = {
       email = git-email;
@@ -32,7 +32,7 @@ in
     };
   };
 
-  # This comes from the `./modules/git-spice` module.
+  # This comes from the `./modules/git-spice/module.nix` module.
   git-spice = {
     enable = true;
 
@@ -43,7 +43,7 @@ in
     installed-binary-name = "git-spice";
   };
 
-  # This comes from the `./modules/godot` module.
+  # This comes from the `./modules/godot/module.nix` module.
   godot = {
     enable = true;
   };
@@ -197,17 +197,17 @@ in
   };
 
   imports = [
-    ./modules/copy-application-bundles
-    ./modules/crane-completions
-    ./modules/git
-    ./modules/git-spice
-    ./modules/godot
-    ./modules/nix-env.fish
-    ./modules/pdm
-    ./modules/restack
+    ./modules/copy-application-bundles/module.nix
+    ./modules/crane-completions/module.nix
+    ./modules/git/module.nix
+    ./modules/git-spice/module.nix
+    ./modules/godot/module.nix
+    ./modules/nix-env.fish/module.nix
+    ./modules/pdm/module.nix
+    ./modules/restack/module.nix
   ];
 
-  # This comes from the `./modules/nix-env.fish` module.
+  # This comes from the `./modules/nix-env.fish/module.nix` module.
   nix-env_fish = {
     enable = true;
   };
@@ -218,7 +218,7 @@ in
     };
   };
 
-  # This comes from the `./modules/pdm` module.
+  # This comes from the `./modules/pdm/module.nix` module.
   pdm = {
     enable = true;
   };
@@ -396,7 +396,7 @@ in
     };
   };
 
-  # This comes from the `./modules/restack` module.
+  # This comes from the `./modules/restack/module.nix` module.
   restack = {
     enable = true;
   };
