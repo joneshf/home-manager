@@ -166,7 +166,7 @@ in
 
   imports = [
     ./modules/programs/crane/completions/module.nix
-    ./modules/programs/fish/package-plugins/nix-env.fish/module.nix
+    ./modules/programs/fish/package-plugins/module.nix
     ./modules/programs/git/ssh-signing/module.nix
     ./modules/programs/git-spice/module.nix
     ./modules/programs/godot/module.nix
@@ -218,12 +218,10 @@ in
       # Use fish!
       enable = true;
 
-      package-plugins = {
-        # This comes from the `./modules/programs/fish/package-plugins/nix-env.fish/module.nix` module.
-        "nix-env.fish" = {
-          enable = true;
-        };
-      };
+      # This comes from the `./modules/programs/fish/package-plugins/module.nix` module.
+      package-plugins = [
+        (pkgs.callPackage ./packages/nix-env.fish/package.nix { })
+      ];
 
       shellInit = ''
         set --export GPG_TTY (tty)
