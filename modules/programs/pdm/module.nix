@@ -49,7 +49,7 @@
           default = true;
         };
 
-        package = lib.options.mkPackageOption pkgs "pdm" { };
+        package = pkgs.callPackage ../../../lib/mk-package-option.nix { } pkgs "pdm" { };
 
         pep-582 = {
           enable = lib.options.mkEnableOption "PEP 582" // {

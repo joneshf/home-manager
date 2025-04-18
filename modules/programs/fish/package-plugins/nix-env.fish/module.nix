@@ -27,18 +27,9 @@
           "nix-env.fish" = {
             enable = lib.options.mkEnableOption "nix-env.fish";
 
-            package =
-              lib.options.mkPackageOption pkgs "nix-env.fish" {
-                # We want to use the package defined in `../../../../../packages/nix-env.fish/package.nix` as the default.
-                # This option has to be a `string | [string]` based on the path within `pkgs`.
-                # The package in `../../../../../packages/nix-env.fish/package.nix` isn't within `pkgs`.
-                # So we set this to `null` explicitly,
-                # and set the actual `default` below where we can use full `nix` syntax.
-                default = null;
-              }
-              // {
-                default = pkgs.callPackage ../../../../../packages/nix-env.fish/package.nix { };
-              };
+            package = pkgs.callPackage ../../../../../lib/mk-package-option.nix { } pkgs "nix-env.fish" {
+              default = pkgs.callPackage ../../../../../packages/nix-env.fish/package.nix { };
+            };
           };
         };
       };
