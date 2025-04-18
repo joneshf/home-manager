@@ -16,11 +16,6 @@ let
 in
 
 {
-  # This comes from the `./modules/godot/module.nix` module.
-  godot = {
-    enable = true;
-  };
-
   home = {
     file = {
       ".ideavimrc" = {
@@ -170,12 +165,12 @@ in
   };
 
   imports = [
-    ./modules/godot/module.nix
     ./modules/nix-env.fish/module.nix
     ./modules/pdm/module.nix
     ./modules/programs/crane/completions/module.nix
     ./modules/programs/git/ssh-signing/module.nix
     ./modules/programs/git-spice/module.nix
+    ./modules/programs/godot/module.nix
     ./modules/restack/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
@@ -299,6 +294,11 @@ in
     };
 
     go = {
+      enable = true;
+    };
+
+    # This comes from the `./modules/programs/godot/module.nix` module.
+    godot = {
       enable = true;
     };
 
