@@ -16,17 +16,6 @@ let
 in
 
 {
-  # This comes from the `./modules/git-spice/module.nix` module.
-  git-spice = {
-    enable = true;
-
-    # Since `git-spice` only wants to make a `gs` binary available,
-    # we rename to something that doesn't conflict with `Ghostscript`'s `gs` binary.
-    # More things know about `Ghostscript` than `git-spice`,
-    # so it gets to keep its decades old name.
-    installed-binary-name = "git-spice";
-  };
-
   # This comes from the `./modules/godot/module.nix` module.
   godot = {
     enable = true;
@@ -181,12 +170,12 @@ in
   };
 
   imports = [
-    ./modules/git-spice/module.nix
     ./modules/godot/module.nix
     ./modules/nix-env.fish/module.nix
     ./modules/pdm/module.nix
     ./modules/programs/crane/completions/module.nix
     ./modules/programs/git/ssh-signing/module.nix
+    ./modules/programs/git-spice/module.nix
     ./modules/restack/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
@@ -296,6 +285,17 @@ in
       userEmail = git-email;
 
       userName = git-username;
+    };
+
+    # This comes from the `./modules/programs/git-spice/module.nix` module.
+    git-spice = {
+      enable = true;
+
+      # Since `git-spice` only wants to make a `gs` binary available,
+      # we rename to something that doesn't conflict with `Ghostscript`'s `gs` binary.
+      # More things know about `Ghostscript` than `git-spice`,
+      # so it gets to keep its decades old name.
+      installed-binary-name = "git-spice";
     };
 
     go = {
