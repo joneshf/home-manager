@@ -165,20 +165,15 @@ in
   };
 
   imports = [
-    ./modules/nix-env.fish/module.nix
     ./modules/pdm/module.nix
     ./modules/programs/crane/completions/module.nix
+    ./modules/programs/fish/package-plugins/nix-env.fish/module.nix
     ./modules/programs/git/ssh-signing/module.nix
     ./modules/programs/git-spice/module.nix
     ./modules/programs/godot/module.nix
     ./modules/restack/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
-
-  # This comes from the `./modules/nix-env.fish/module.nix` module.
-  nix-env_fish = {
-    enable = true;
-  };
 
   nixpkgs = {
     config = {
@@ -227,6 +222,13 @@ in
     fish = {
       # Use fish!
       enable = true;
+
+      package-plugins = {
+        # This comes from the `./modules/programs/fish/package-plugins/nix-env.fish/module.nix` module.
+        "nix-env.fish" = {
+          enable = true;
+        };
+      };
 
       shellInit = ''
         set --export GPG_TTY (tty)
