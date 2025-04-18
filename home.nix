@@ -16,17 +16,6 @@ let
 in
 
 {
-  # this comes from the `./modules/git/module.nix` module.
-  git = {
-    signing = {
-      email = git-email;
-
-      enable = true;
-
-      public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
-    };
-  };
-
   # This comes from the `./modules/git-spice/module.nix` module.
   git-spice = {
     enable = true;
@@ -192,12 +181,12 @@ in
   };
 
   imports = [
-    ./modules/git/module.nix
     ./modules/git-spice/module.nix
     ./modules/godot/module.nix
     ./modules/nix-env.fish/module.nix
     ./modules/pdm/module.nix
     ./modules/programs/crane/completions/module.nix
+    ./modules/programs/git/ssh-signing/module.nix
     ./modules/restack/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
@@ -293,6 +282,15 @@ in
 
       lfs = {
         enable = true;
+      };
+
+      # this comes from the `./modules/programs/git/ssh-signing/module.nix` module.
+      ssh-signing = {
+        email = git-email;
+
+        enable = true;
+
+        public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
       };
 
       userEmail = git-email;
