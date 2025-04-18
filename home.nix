@@ -171,7 +171,7 @@ in
     ./modules/programs/git-spice/module.nix
     ./modules/programs/godot/module.nix
     ./modules/programs/pdm/module.nix
-    ./modules/restack/module.nix
+    ./modules/programs/restack/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
 
@@ -356,6 +356,11 @@ in
       enable = true;
     };
 
+    # This comes from the `./modules/programs/restack/module.nix` module.
+    restack = {
+      enable = true;
+    };
+
     ssh = {
       enable = true;
 
@@ -396,11 +401,6 @@ in
         };
       };
     };
-  };
-
-  # This comes from the `./modules/restack/module.nix` module.
-  restack = {
-    enable = true;
   };
 
   targets = {
