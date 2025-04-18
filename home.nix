@@ -16,11 +16,6 @@ let
 in
 
 {
-  # This comes from the `./modules/crane-completions/module.nix` module.
-  crane-completions = {
-    enable = true;
-  };
-
   # this comes from the `./modules/git/module.nix` module.
   git = {
     signing = {
@@ -197,12 +192,12 @@ in
   };
 
   imports = [
-    ./modules/crane-completions/module.nix
     ./modules/git/module.nix
     ./modules/git-spice/module.nix
     ./modules/godot/module.nix
     ./modules/nix-env.fish/module.nix
     ./modules/pdm/module.nix
+    ./modules/programs/crane/completions/module.nix
     ./modules/restack/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
@@ -233,6 +228,13 @@ in
 
     bat = {
       enable = true;
+    };
+
+    # This comes from the `./modules/programs/crane/completions/module.nix` module.
+    crane = {
+      completions = {
+        enable = true;
+      };
     };
 
     direnv = {
