@@ -16,11 +16,6 @@ let
 in
 
 {
-  # This comes from the `./modules/copy-application-bundles/module.nix` module.
-  copy-application-bundles = {
-    directory = "Applications/Copied Application Bundles";
-  };
-
   # This comes from the `./modules/crane-completions/module.nix` module.
   crane-completions = {
     enable = true;
@@ -202,7 +197,6 @@ in
   };
 
   imports = [
-    ./modules/copy-application-bundles/module.nix
     ./modules/crane-completions/module.nix
     ./modules/git/module.nix
     ./modules/git-spice/module.nix
@@ -210,6 +204,7 @@ in
     ./modules/nix-env.fish/module.nix
     ./modules/pdm/module.nix
     ./modules/restack/module.nix
+    ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
 
   # This comes from the `./modules/nix-env.fish/module.nix` module.
@@ -408,6 +403,11 @@ in
 
   targets = {
     darwin = {
+      # This comes from the `./modules/targets/darwin/copy-application-bundles/module.nix` module.
+      copy-application-bundles = {
+        directory = "Applications/Copied Application Bundles";
+      };
+
       defaults = {
         "com.microsoft.VSCode" = {
           # Disable special character pop-up,
