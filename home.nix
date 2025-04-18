@@ -165,12 +165,12 @@ in
   };
 
   imports = [
-    ./modules/pdm/module.nix
     ./modules/programs/crane/completions/module.nix
     ./modules/programs/fish/package-plugins/nix-env.fish/module.nix
     ./modules/programs/git/ssh-signing/module.nix
     ./modules/programs/git-spice/module.nix
     ./modules/programs/godot/module.nix
+    ./modules/programs/pdm/module.nix
     ./modules/restack/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
@@ -179,11 +179,6 @@ in
     config = {
       allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) unfreePackages;
     };
-  };
-
-  # This comes from the `./modules/pdm/module.nix` module.
-  pdm = {
-    enable = true;
   };
 
   programs = {
@@ -354,6 +349,11 @@ in
           | str join (char env_sep)
         )
       '';
+    };
+
+    # This comes from the `./modules/programs/pdm/module.nix` module.
+    pdm = {
+      enable = true;
     };
 
     ssh = {
