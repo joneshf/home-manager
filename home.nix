@@ -16,6 +16,11 @@ let
 in
 
 {
+  # This comes from the `./modules/copy-application-bundles/module.nix` module.
+  copy-application-bundles = {
+    directory = "Applications/Copied Application Bundles";
+  };
+
   # This comes from the `./modules/crane-completions/module.nix` module.
   crane-completions = {
     enable = true;

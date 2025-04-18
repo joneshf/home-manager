@@ -79,9 +79,9 @@
   options = {
     copy-application-bundles = {
       directory = lib.mkOption {
-        default = "Applications/Copied Application Bundles";
+        default = "Applications/Home Manager Apps";
         description = "Directory to put the copied Application Bundles in.";
-        example = "Applications/Home Manager Apps";
+        example = "Applications/Copied Application Bundles";
         type = lib.types.str;
       };
     };
