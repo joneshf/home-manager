@@ -12,8 +12,6 @@
 
     programs = {
       git = {
-        enable = true;
-
         extraConfig = {
           commit = {
             gpgSign = true;
