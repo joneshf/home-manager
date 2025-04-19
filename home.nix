@@ -113,6 +113,9 @@ in
       pkgs.brew-nix.makemkv
       pkgs.brew-nix.mqtt-explorer
       pkgs.brew-nix.obsidian
+      (pkgs.brew-nix.turbotax-2024.overrideAttrs {
+        dontStrip = true;
+      })
 
       pkgs.unstable.awscli2
       pkgs.unstable.bazel_7
