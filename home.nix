@@ -269,6 +269,8 @@ in
 
         enable = true;
 
+        program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+
         public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
       };
 
