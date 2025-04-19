@@ -384,6 +384,8 @@ in
     starship = {
       enable = true;
 
+      package = pkgs.unstable.starship;
+
       settings = {
         battery = {
           display = [
