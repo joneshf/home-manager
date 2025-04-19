@@ -117,7 +117,6 @@ in
       pkgs.unstable.awscli2
       pkgs.unstable.bazel_7
       pkgs.unstable.colima
-      pkgs.unstable.difftastic
       pkgs.unstable.git-absorb
       pkgs.unstable.jnv
       pkgs.unstable.k9s
@@ -168,6 +167,7 @@ in
     ./modules/programs/crane/completions/module.nix
     ./modules/programs/fish/package-plugins/module.nix
     ./modules/programs/git/ssh-signing/module.nix
+    ./modules/programs/git/structural/module.nix
     ./modules/programs/git-spice/module.nix
     ./modules/programs/godot/module.nix
     ./modules/programs/pdm/module.nix
@@ -272,6 +272,12 @@ in
         program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
 
         public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
+      };
+
+      structural = {
+        enable = true;
+
+        package = pkgs.unstable.difftastic;
       };
 
       userEmail = git-email;
