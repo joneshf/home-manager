@@ -205,7 +205,7 @@
             };
           };
 
-          homeManagerModules = import ./lib/modules-from-directory-recursive.nix {
+          homeModules = import ./lib/modules-from-directory-recursive.nix {
             directory = ./modules;
 
             lib = pkgs.lib;
