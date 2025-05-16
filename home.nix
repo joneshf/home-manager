@@ -117,6 +117,8 @@ in
 
       pkgs.unstable.awscli2
       pkgs.unstable.bazel_7
+      pkgs.unstable.bazel-buildtools
+      pkgs.unstable.bazelisk
       pkgs.unstable.colima
       pkgs.unstable.git-absorb
       pkgs.unstable.jnv
@@ -134,6 +136,7 @@ in
       pkgs.unstable.qbittorrent
       pkgs.unstable.rectangle
       pkgs.unstable.spotify
+      pkgs.unstable.uv
       pkgs.unstable.viddy
       pkgs.unstable.wireshark
       pkgs.unstable.zotero
