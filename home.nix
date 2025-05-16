@@ -173,6 +173,7 @@ in
     ./modules/programs/godot/module.nix
     ./modules/programs/pdm/module.nix
     ./modules/programs/restack/module.nix
+    ./modules/programs/sapling/gpg-signing/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
 
@@ -366,6 +367,23 @@ in
     # This comes from the `./modules/programs/restack/module.nix` module.
     restack = {
       enable = true;
+    };
+
+    sapling = {
+      enable = true;
+
+      # this comes from the `./modules/programs/sapling/gpg-signing/module.nix` module.
+      gpg-signing = {
+        enable = true;
+
+        key = "2ACB6C3376555123";
+      };
+
+      package = pkgs.unstable.sapling;
+
+      userEmail = git-email;
+
+      userName = git-username;
     };
 
     ssh = {
