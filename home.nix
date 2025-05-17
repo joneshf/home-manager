@@ -153,6 +153,15 @@ in
     # Environment variables.
     sessionVariables = {
       EDITOR = "vim";
+
+      # Version 4.0.3 of `nh` reports a warning on any `nh` command if `FLAKE` is set,
+      # but `NH_FLAKE` is not.
+      # This fixed on the `master` branch of `home-manager`,
+      # but hasn't been backported to the `24.11` branch.
+      #
+      # We can silence the warning for now by explicitly setting the `NH_FLAKE` environment variable to point to the same location as `FLAKE`.
+      # We should be able to remove this once we update `home-manager` to `25.05` or newer.
+      NH_FLAKE = "${config.xdg.configHome}/home-manager";
     };
 
     # This value determines the Home Manager release that your configuration is
