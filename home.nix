@@ -231,6 +231,8 @@ in
       # Use fish!
       enable = true;
 
+      package = pkgs.unstable.fish;
+
       # This comes from the `./modules/programs/fish/package-plugins/module.nix` module.
       package-plugins = [
         (pkgs.callPackage ./packages/nix-env.fish/package.nix { })
