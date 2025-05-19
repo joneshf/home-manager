@@ -16,6 +16,19 @@ let
 in
 
 {
+  commit-signing = {
+    enable = true;
+
+    # this comes from the `./modules/commit-signing/module.nix` module.
+    ssh = {
+      email = git-email;
+
+      program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+
+      public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
+    };
+  };
+
   home = {
     file = {
       ".ideavimrc" = {
@@ -177,9 +190,9 @@ in
   };
 
   imports = [
+    ./modules/commit-signing/module.nix
     ./modules/programs/crane/completions/module.nix
     ./modules/programs/fish/package-plugins/module.nix
-    ./modules/programs/git/ssh-signing/module.nix
     ./modules/programs/git/structural/module.nix
     ./modules/programs/git-spice/module.nix
     ./modules/programs/godot/module.nix
@@ -276,17 +289,6 @@ in
 
       lfs = {
         enable = true;
-      };
-
-      # this comes from the `./modules/programs/git/ssh-signing/module.nix` module.
-      ssh-signing = {
-        email = git-email;
-
-        enable = true;
-
-        program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-
-        public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
       };
 
       structural = {
