@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 
 let
-  git-email = "jones3.hardy@gmail.com";
+  commit-email = "jones3.hardy@gmail.com";
 
-  git-username = "joneshf";
+  commit-username = "joneshf";
 
   home-directory = "/Users/${username}";
 
@@ -21,7 +21,7 @@ in
 
     # this comes from the `./modules/commit-signing/module.nix` module.
     ssh = {
-      email = git-email;
+      email = commit-email;
 
       program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
 
@@ -297,9 +297,9 @@ in
         package = pkgs.unstable.difftastic;
       };
 
-      userEmail = git-email;
+      userEmail = commit-email;
 
-      userName = git-username;
+      userName = commit-username;
     };
 
     # This comes from the `./modules/programs/git-spice/module.nix` module.

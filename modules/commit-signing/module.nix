@@ -41,6 +41,32 @@
               };
             };
           };
+
+      jujutsu =
+        lib.modules.mkIf
+          (config.programs.jujutsu.enable && config.commit-signing.enable-jujutsu-integration)
+          {
+            settings = {
+              signing = {
+                backend = "ssh";
+
+                backends = {
+                  ssh =
+                    {
+                      allowed-signers = "${config.home.homeDirectory}/${config.commit-signing.ssh.allowed-signers-file}";
+                    }
+                    // lib.attrsets.optionalAttrs (config.commit-signing.ssh.program != null) {
+                      program = config.commit-signing.ssh.program;
+                    }
+                    // { };
+                };
+
+                behavior = "own";
+
+                key = config.commit-signing.ssh.public-key;
+              };
+            };
+          };
     };
   };
 
@@ -49,6 +75,10 @@
       enable = lib.options.mkEnableOption "commit signing";
 
       enable-git-integration = lib.options.mkEnableOption "git integration" // {
+        default = true;
+      };
+
+      enable-jujutsu-integration = lib.options.mkEnableOption "jujutsu integration" // {
         default = true;
       };
 
