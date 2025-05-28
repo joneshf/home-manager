@@ -350,6 +350,12 @@ in
       package = pkgs.unstable.nh;
     };
 
+    numbat = {
+      enable = true;
+
+      package = pkgs.unstable.numbat;
+    };
+
     nushell = {
       # Trying out Nushell: https://www.nushell.sh/.
       enable = true;
