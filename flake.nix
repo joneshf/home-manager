@@ -65,10 +65,6 @@
         nixpkgs = {
           follows = "nixpkgs-unstable";
         };
-
-        nixpkgs-stable = {
-          follows = "nixpkgs";
-        };
       };
 
       owner = "cachix";
@@ -89,7 +85,7 @@
 
       owner = "nix-community";
 
-      ref = "release-24.11";
+      ref = "release-25.05";
 
       repo = "home-manager";
 
@@ -99,7 +95,7 @@
     nixpkgs = {
       owner = "nixos";
 
-      ref = "nixos-24.11";
+      ref = "nixos-25.05";
 
       repo = "nixpkgs";
 
