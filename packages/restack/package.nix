@@ -8,19 +8,19 @@
 let
   platform = callPackage ../../lib/for-host-platform.nix { } {
     aarch64-darwin = {
-      sha256 = "sha256-rFnFjassYWANGOIDMrTjaygi8hMbY63ucSzIDrD7eaU=";
+      hash = "sha256-XpASU8eKdmsdkYsR98G5BGavrlGVsl01BDJcJ41uThA=";
       tarball-basename = "restack-darwin-arm64.tar.gz";
     };
     aarch64-linux = {
-      sha256 = "sha256-xvH61V82H3mAj8N3V8J2ZI+yl16byR6jEpwUjqWToBA=";
+      hash = "sha256-ZuJju/jpFq1GGnWiC9Id3F2vjIijOddcw1eVblQqadk=";
       tarball-basename = "restack-linux-arm64.tar.gz";
     };
     x86_64-darwin = {
-      sha256 = "sha256-9kkPnTGPnye5PLTMm1lBMJ783lFqZ56B4kPyEbyoz64=";
+      hash = "sha256-WH2sx/kyBCoKUE8jabF8/IwQaARRHi56TwoPNhMyJs0=";
       tarball-basename = "restack-darwin-amd64.tar.gz";
     };
     x86_64-linux = {
-      sha256 = "sha256-J8+A/LsHGJ93S/PbbaYDjdSEKPOu5BvrdM5Pi9kakkQ=";
+      hash = "sha256-NVDUQS0I99PAyKdOe59rx/iBGUYLaY0c9mSJ+RWNoNc=";
       tarball-basename = "restack-linux-amd64.tar.gz";
     };
   };
@@ -35,14 +35,14 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -D $src $out/bin/${pname}
+    install -D $src/${pname} $out/bin/${pname}
     runHook postInstall
   '';
 
   inherit pname;
 
   src = fetchzip {
-    sha256 = platform.sha256;
+    hash = platform.hash;
 
     url = "https://github.com/abhinav/restack/releases/download/v${version}/${platform.tarball-basename}";
   };
