@@ -325,6 +325,21 @@ in
       package = pkgs.unstable.jujutsu;
 
       settings = {
+        templates = {
+          draft_commit_description = ''
+            concat(
+              coalesce(description, default_commit_description, "\n"),
+              surround(
+                "\nJJ: This commit contains the following changes:\n",
+                "",
+                indent("JJ:     ", diff.stat(72)),
+              ),
+              "\nJJ: ignore-rest\n",
+              diff.git(),
+            )
+          '';
+        };
+
         ui = {
           show-cryptographic-signatures = true;
         };
