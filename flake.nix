@@ -201,11 +201,15 @@
             };
           };
 
-          homeModules = import ./lib/modules-from-directory-recursive.nix {
-            directory = ./modules;
+          homeModules =
+            import ./lib/modules-from-directory-recursive.nix {
+              directory = ./modules;
 
-            lib = pkgs.lib;
-          };
+              lib = pkgs.lib;
+            }
+            // {
+              home = ./home.nix;
+            };
         };
 
       imports = [
