@@ -74,6 +74,16 @@ in
           in
           "${src}/plug.vim";
       };
+
+      "Library/Application Support/jjui/config.toml" = {
+        source = pkgs.writers.writeTOML "config.toml" {
+          custom_commands = {
+            "simplify-parents" = {
+              args = [ "simplify-parents" ];
+            };
+          };
+        };
+      };
     };
 
     # Home Manager needs a bit of information about you and the paths it should manage.
