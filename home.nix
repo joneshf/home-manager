@@ -468,6 +468,8 @@ in
       # This comes from the `./modules/targets/darwin/copy-application-bundles/module.nix` module.
       copy-application-bundles = {
         directory = "Applications/Copied Application Bundles";
+
+        enable = true;
       };
 
       defaults = {
