@@ -133,85 +133,6 @@
   outputs =
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      flake =
-        let
-          # Massage the flat list from the Homebrew JSON API into an attrset.
-          casks = builtins.listToAttrs casks-entries;
-
-          casks-entries = builtins.map (cask: {
-            name = cask.token;
-            value = cask;
-          }) casks-list;
-
-          casks-list = builtins.fromJSON (builtins.readFile "${inputs.brew-api}/cask.json");
-
-          module-overlays =
-            { ... }:
-            {
-              nixpkgs = {
-                overlays = [
-                  overlay-brew-nix
-                  overlay-unstable
-                ];
-              };
-            };
-
-          overlay-brew-nix = final: prev: {
-            brew-nix = builtins.mapAttrs (
-              pname: derivation:
-              let
-                cask = casks.${pname};
-
-                fetchurl-args =
-                  if pname == "chromium" then
-                    {
-                      sha256 = "sha256-lqvHrreXBUdZ/fAEPKNlnttj6uAIwIbV3Nv47BfqAFk=";
-                      url = cask.variations.${macOS-variation}.url;
-                    }
-                  else
-                    prev.lib.attrsets.attrByPath [ "variations" macOS-variation ] {
-                      sha256 = prev.lib.strings.optionalString (cask.sha256 != "no_check") cask.sha256;
-                      url = cask.url;
-                    } cask;
-              in
-              derivation.overrideAttrs {
-                src = prev.fetchurl fetchurl-args;
-              }
-            ) inputs.brew-nix.outputs.packages.${final.system};
-          };
-
-          overlay-unstable = _final: prev: { unstable = prev.callPackage inputs.nixpkgs-unstable { }; };
-
-          macOS-variation = "sequoia";
-
-          pkgs = import inputs.nixpkgs { system = "x86_64-darwin"; };
-        in
-        {
-          homeConfigurations = {
-            "joneshf" = inputs.home-manager.lib.homeManagerConfiguration {
-              # Optionally use extraSpecialArgs to pass through arguments to home.nix.
-
-              modules = [
-                ./home.nix
-                module-overlays
-                inputs._1password-shell-plugins.hmModules.default
-              ];
-
-              inherit pkgs;
-            };
-          };
-
-          homeModules =
-            import ./lib/modules-from-directory-recursive.nix {
-              directory = ./modules;
-
-              lib = pkgs.lib;
-            }
-            // {
-              home = ./home.nix;
-            };
-        };
-
       imports = [
         inputs.git-hooks_nix.flakeModule
       ];
@@ -228,6 +149,83 @@
           };
 
           formatter = pkgs.nixfmt-rfc-style;
+
+          legacyPackages =
+            let
+              # Massage the flat list from the Homebrew JSON API into an attrset.
+              casks = builtins.listToAttrs casks-entries;
+
+              casks-entries = builtins.map (cask: {
+                name = cask.token;
+                value = cask;
+              }) casks-list;
+
+              casks-list = builtins.fromJSON (builtins.readFile "${inputs.brew-api}/cask.json");
+
+              module-overlays =
+                { ... }:
+                {
+                  nixpkgs = {
+                    overlays = [
+                      overlay-brew-nix
+                      overlay-unstable
+                    ];
+                  };
+                };
+
+              overlay-brew-nix = final: prev: {
+                brew-nix = builtins.mapAttrs (
+                  pname: derivation:
+                  let
+                    cask = casks.${pname};
+
+                    fetchurl-args =
+                      if pname == "chromium" then
+                        {
+                          sha256 = "sha256-lqvHrreXBUdZ/fAEPKNlnttj6uAIwIbV3Nv47BfqAFk=";
+                          url = cask.variations.${macOS-variation}.url;
+                        }
+                      else
+                        prev.lib.attrsets.attrByPath [ "variations" macOS-variation ] {
+                          sha256 = prev.lib.strings.optionalString (cask.sha256 != "no_check") cask.sha256;
+                          url = cask.url;
+                        } cask;
+                  in
+                  derivation.overrideAttrs {
+                    src = prev.fetchurl fetchurl-args;
+                  }
+                ) inputs.brew-nix.outputs.packages.${final.system};
+              };
+
+              overlay-unstable = _final: prev: { unstable = prev.callPackage inputs.nixpkgs-unstable { }; };
+
+              macOS-variation = "sequoia";
+            in
+            {
+              homeConfigurations = {
+                "joneshf" = inputs.home-manager.lib.homeManagerConfiguration {
+                  # Optionally use extraSpecialArgs to pass through arguments to home.nix.
+
+                  modules = [
+                    ./home.nix
+                    module-overlays
+                    inputs._1password-shell-plugins.hmModules.default
+                  ];
+
+                  inherit pkgs;
+                };
+              };
+
+              homeModules =
+                import ./lib/modules-from-directory-recursive.nix {
+                  directory = ./modules;
+
+                  lib = pkgs.lib;
+                }
+                // {
+                  home = ./home.nix;
+                };
+            };
 
           packages = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
             callPackage = pkgs.callPackage;
