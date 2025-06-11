@@ -341,6 +341,8 @@ in
         };
 
         ui = {
+          merge-editor = "mergiraf";
+
           show-cryptographic-signatures = true;
         };
 
@@ -354,6 +356,12 @@ in
 
     man = {
       generateCaches = false;
+    };
+
+    mergiraf = {
+      enable = true;
+
+      package = pkgs.unstable.mergiraf;
     };
 
     nh = {
