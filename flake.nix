@@ -208,7 +208,10 @@
           };
         };
 
-      imports = [ inputs.git-hooks_nix.flakeModule ];
+      imports = [
+        inputs.git-hooks_nix.flakeModule
+        inputs.home-manager.flakeModules.home-manager
+      ];
 
       perSystem =
         { config, pkgs, ... }:
