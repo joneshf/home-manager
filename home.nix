@@ -529,6 +529,121 @@ in
       };
 
       defaults = {
+        "com.apple.ActivityMonitor" = {
+          IconType = 6;
+        };
+
+        "com.apple.Terminal" = {
+          "Default Window Settings" = "Pro";
+
+          "Startup Window Settings" = "Pro";
+
+          # As nice as it would be to only set a couple of things in `"Window Settings"` (like for the `Pro` profile),
+          # `home-manager` doesn't merge the `dict`s (it overwrites them).
+          # And since these `dict`s contain `data` fields that `nixpkgs` doesn't support,
+          # we cannot even write them in their entirety.
+          # If we do,
+          # they get overwritten each time `Terminal.app` starts because they're invalid.
+        };
+
+        "com.apple.dock" = {
+          autohide = true;
+
+          largesize = 128;
+
+          magnification = true;
+
+          persistent-apps = [
+            {
+              tile-data = {
+                file-data = {
+                  _CFURLString = "file://${config.home.homeDirectory}/${config.targets.darwin.copy-application-bundles.directory}/DuckDuckGo.app";
+
+                  _CFURLStringType = 15;
+                };
+              };
+
+              tile-type = "file-tile";
+            }
+            {
+              tile-data = {
+                file-data = {
+                  _CFURLString = "file://${config.home.homeDirectory}/${config.targets.darwin.copy-application-bundles.directory}/Signal.app";
+
+                  _CFURLStringType = 15;
+                };
+              };
+
+              tile-type = "file-tile";
+            }
+            {
+              tile-data = {
+                file-data = {
+                  _CFURLString = "file:///System/Applications/Utilities/Terminal.app";
+
+                  _CFURLStringType = 15;
+                };
+              };
+
+              tile-type = "file-tile";
+            }
+            {
+              tile-data = {
+                file-data = {
+                  _CFURLString = "file:///${config.home.homeDirectory}/${config.targets.darwin.copy-application-bundles.directory}/Visual Studio Code.app";
+
+                  _CFURLStringType = 15;
+                };
+              };
+
+              tile-type = "file-tile";
+            }
+            {
+              tile-data = {
+                file-data = {
+                  _CFURLString = "file:///Applications/1Password.app";
+
+                  _CFURLStringType = 15;
+                };
+              };
+
+              tile-type = "file-tile";
+            }
+          ];
+
+          show-recents = false;
+
+          tilesize = 128;
+        };
+
+        "com.apple.finder" = {
+          AppleShowAllFiles = false;
+        };
+
+        "com.apple.menuextra.clock" = {
+          FlashDateSeparators = true;
+
+          Show24Hour = true;
+
+          ShowAMPM = false;
+
+          ShowSeconds = true;
+        };
+
+        "com.apple.universalaccess.plist" = {
+          # This is the setting for "Accessibility > Zoom > Use keyboard shortcuts to zoom".
+          closeViewHotkeysEnabled = true;
+
+          # This is the setting for "Accessibility > Zoom > Advanced… > Zoomed image moves".
+          closeViewPanningMode = 2;
+
+          # This is the setting for "Accessibility > Zoom > Advanced… > Modifiers for Temporary Actions > Toggle zoom".
+          closeViewPressOnReleaseOff = true;
+
+          # This is the setting for "Accessibility > Zoom > Zoom style".
+          closeViewZoomMode = 1;
+        };
+
         "com.microsoft.VSCode" = {
           # Disable special character pop-up,
           # so holding a key repeats it in VS Code.
