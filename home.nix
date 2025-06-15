@@ -10,6 +10,7 @@ let
   unfreePackages = [
     "1password-cli"
     "spotify"
+    "vscode"
   ];
 
   username = "joneshf";
@@ -469,6 +470,50 @@ in
 
         kubernetes = {
           disabled = false;
+        };
+      };
+    };
+
+    vscode = {
+      enable = true;
+
+      package = pkgs.unstable.vscode;
+
+      profiles = {
+        default = {
+          enableExtensionUpdateCheck = false;
+
+          enableUpdateCheck = false;
+        };
+
+        home-manager = {
+          extensions = [
+            pkgs.unstable.vscode-extensions.jnoortheen.nix-ide
+            pkgs.unstable.vscode-extensions.vscodevim.vim
+          ];
+
+          userSettings = {
+            # Different key bindings will ask to turn on screen reader support.
+            # We explicitly set it to `"off"` so VSCode doesn't pop up a modal at random times.
+            "editor.accessibilitySupport" = "off";
+            "editor.cursorBlinking" = "expand";
+            "editor.cursorStyle" = "line";
+            "editor.formatOnPaste" = true;
+            "editor.formatOnSave" = true;
+            "editor.renderWhitespace" = "all";
+            "editor.rulers" = [ 80 ];
+            "editor.wordWrap" = "off";
+            "files.insertFinalNewline" = true;
+            "files.trimFinalNewlines" = true;
+            "files.trimTrailingWhitespace" = true;
+            "nix.enableLanguageServer" = true;
+            "purescript.addNpmPath" = true;
+            "window.zoomLevel" = 2;
+            "workbench.colorTheme" = "Solarized Light";
+            "workbench.editor.highlightModifiedTabs" = true;
+            "workbench.preferredDarkColorTheme" = "Solarized Dark";
+            "workbench.preferredLightColorTheme" = "Solarized Light";
+          };
         };
       };
     };
