@@ -132,6 +132,7 @@ in
       pkgs.brew-nix.makemkv
       pkgs.brew-nix.mqtt-explorer
       pkgs.brew-nix.obsidian
+      pkgs.brew-nix.signal
       pkgs.brew-nix.turbotax-2024
 
       pkgs.unstable.awscli2
