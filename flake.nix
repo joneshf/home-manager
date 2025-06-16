@@ -180,16 +180,30 @@
                     cask = casks.${pname};
 
                     fetchurl-args =
-                      if pname == "chromium" then
-                        {
-                          sha256 = "sha256-lqvHrreXBUdZ/fAEPKNlnttj6uAIwIbV3Nv47BfqAFk=";
-                          url = cask.variations.${macOS-variation}.url;
-                        }
+                      if final.system == "aarch64-darwin" then
+                        if pname == "chromium" then
+                          {
+                            sha256 = "sha256-9avP2xHh5II3WG2gzEDtrJmEwxTrpnsfY6qcqWHVSFk=";
+                            url = cask.url;
+                          }
+                        else
+                          prev.lib.attrsets.getAttrs [ "sha256" "url" ] cask
+                      else if final.system == "x86_64-darwin" then
+                        let
+                          macOS-variation = "sequoia";
+                        in
+                        if pname == "chromium" then
+                          {
+                            sha256 = "sha256-lqvHrreXBUdZ/fAEPKNlnttj6uAIwIbV3Nv47BfqAFk=";
+                            url = cask.variations.${macOS-variation}.url;
+                          }
+                        else
+                          prev.lib.attrsets.attrByPath [ "variations" macOS-variation ] {
+                            sha256 = prev.lib.strings.optionalString (cask.sha256 != "no_check") cask.sha256;
+                            url = cask.url;
+                          } cask
                       else
-                        prev.lib.attrsets.attrByPath [ "variations" macOS-variation ] {
-                          sha256 = prev.lib.strings.optionalString (cask.sha256 != "no_check") cask.sha256;
-                          url = cask.url;
-                        } cask;
+                        throw "Unknown system: ${builtins.currentSystem}";
                   in
                   derivation.overrideAttrs {
                     src = prev.fetchurl fetchurl-args;
@@ -198,8 +212,6 @@
               };
 
               overlay-unstable = _final: prev: { unstable = prev.callPackage inputs.nixpkgs-unstable { }; };
-
-              macOS-variation = "sequoia";
             in
             {
               homeConfigurations = {
