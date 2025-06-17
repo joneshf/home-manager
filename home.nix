@@ -181,6 +181,16 @@ in
 
       # `nh` needs the location of the `home-manager` flake.
       NH_HOME_FLAKE = "${config.xdg.configHome}/home-manager";
+
+      # `fish` changed how they handle commands and keywords.
+      # See https://github.com/fish-shell/fish-shell/pull/10758.
+      # It's actually really nice to see them wanting to improve this sort of thing.
+      # But it's a little hard to adjust to it (it feels like something is broken).
+      # We revert the colors back to being `blue` for now.
+      # We'll try removing these reversions at some point in the future.
+      fish_color_command = "blue";
+
+      fish_color_keyword = "blue";
     };
 
     # This value determines the Home Manager release that your configuration is
