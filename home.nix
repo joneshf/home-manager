@@ -175,6 +175,12 @@ in
     # Environment variables.
     sessionVariables = {
       EDITOR = "vim";
+
+      # `nh` needs the location of the `nix-darwin` flake.
+      NH_DARWIN_FLAKE = "/etc/nix-darwin";
+
+      # `nh` needs the location of the `home-manager` flake.
+      NH_HOME_FLAKE = "${config.xdg.configHome}/home-manager";
     };
 
     # This value determines the Home Manager release that your configuration is
@@ -378,9 +384,6 @@ in
 
     nh = {
       enable = true;
-
-      # `nh` needs the location of the Home Manager flake.
-      flake = "${config.xdg.configHome}/home-manager";
 
       package = pkgs.unstable.nh;
     };
