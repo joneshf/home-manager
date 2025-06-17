@@ -147,6 +147,7 @@ in
       pkgs.unstable.krew
       pkgs.unstable.kubernetes-helm
       pkgs.unstable.moonlight-qt
+      pkgs.unstable.nix-output-monitor
       pkgs.unstable.nixfmt-rfc-style
       pkgs.unstable.nmap
       pkgs.unstable.openldap
