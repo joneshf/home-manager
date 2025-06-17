@@ -62,6 +62,29 @@
         "type": "github"
       }
     },
+    "firefox-addons": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1750133006,
+        "narHash": "sha256-ElDNHyWLYe73pLa/cMSjK5+mx0V74XJ7awvrbKJLcv8=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "8fbb9fb1546f6a4903a364edce5410088d875c24",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "ref": "master",
+        "repo": "nur-expressions",
+        "type": "gitlab"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -256,6 +279,7 @@
         "_1password-shell-plugins": "_1password-shell-plugins",
         "brew-api": "brew-api",
         "brew-nix": "brew-nix",
+        "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
         "git-hooks_nix": "git-hooks_nix",
         "home-manager": "home-manager",

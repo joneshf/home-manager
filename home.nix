@@ -9,6 +9,7 @@ let
 
   unfreePackages = [
     "1password-cli"
+    "onepassword-password-manager"
     "spotify"
     "vscode"
   ];
@@ -124,7 +125,6 @@ in
       pkgs.brew-nix.discord
       pkgs.brew-nix.duckduckgo
       pkgs.brew-nix.elgato-stream-deck
-      pkgs.brew-nix.firefox
       pkgs.brew-nix.freecad
       pkgs.brew-nix.handbrake
       pkgs.brew-nix.jetbrains-toolbox
@@ -253,6 +253,76 @@ in
 
       nix-direnv = {
         enable = true;
+      };
+    };
+
+    firefox = {
+      enable = true;
+
+      package = pkgs.unstable.firefox;
+
+      policies = {
+        DisableTelemetry = true;
+
+        EnableTrackingProtection = {
+          Cryptomining = true;
+
+          EmailTracking = true;
+
+          Fingerprinting = true;
+
+          Value = true;
+        };
+
+        FirefoxSuggest = {
+          ImproveSuggest = false;
+
+          Locked = true;
+
+          SponsoredSuggestions = false;
+
+          WebSuggestions = false;
+        };
+
+        SearchEngines = {
+          Remove = [
+            "Amazon.com"
+            "Bing"
+            "Google"
+            "eBay"
+          ];
+        };
+
+        SearchSuggestEnabled = false;
+      };
+
+      profiles = {
+        home-manager = {
+          extensions = {
+            packages = [
+              pkgs.firefox-addons.onepassword-password-manager
+              pkgs.firefox-addons.ublock-origin
+            ];
+          };
+
+          search = {
+            default = "ddg";
+
+            force = true;
+          };
+
+          settings = {
+            # `3` checks the box for "General > Startup > Open previous windows and tabs"
+            "browser.startup.page" = 3;
+
+            # Allow extensions to be auto-enabled
+            "extensions.autoDisableScopes" = 0;
+
+            "extensions.update.autoUpdateDefault" = false;
+
+            "extensions.update.enabled" = false;
+          };
+        };
       };
     };
 

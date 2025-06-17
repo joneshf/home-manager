@@ -44,6 +44,24 @@
       type = "github";
     };
 
+    firefox-addons = {
+      dir = "pkgs/firefox-addons";
+
+      inputs = {
+        nixpkgs = {
+          follows = "nixpkgs-unstable";
+        };
+      };
+
+      owner = "rycee";
+
+      ref = "master";
+
+      repo = "nur-expressions";
+
+      type = "gitlab";
+    };
+
     flake-parts = {
       inputs = {
         nixpkgs-lib = {
@@ -167,6 +185,7 @@
                 {
                   nixpkgs = {
                     overlays = [
+                      inputs.firefox-addons.overlays.default
                       overlay-brew-nix
                       overlay-unstable
                     ];
