@@ -144,7 +144,6 @@ in
       pkgs.unstable.git-absorb
       pkgs.unstable.jjui
       pkgs.unstable.jnv
-      pkgs.unstable.k9s
       pkgs.unstable.krew
       pkgs.unstable.kubernetes-helm
       pkgs.unstable.moonlight-qt
@@ -370,6 +369,12 @@ in
           name = commit-username;
         };
       };
+    };
+
+    k9s = {
+      enable = true;
+
+      package = pkgs.unstable.k9s;
     };
 
     man = {
