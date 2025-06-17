@@ -565,6 +565,10 @@ in
           # they get overwritten each time `Terminal.app` starts because they're invalid.
         };
 
+        "com.apple.controlcenter" = {
+          BatteryShowPercentage = true;
+        };
+
         "com.apple.dock" = {
           autohide = true;
 
