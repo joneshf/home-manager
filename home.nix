@@ -597,8 +597,8 @@ in
             "files.trimTrailingWhitespace" = true;
             "nix.enableLanguageServer" = true;
             "purescript.addNpmPath" = true;
+            "window.autoDetectColorScheme" = true;
             "window.zoomLevel" = 2;
-            "workbench.colorTheme" = "Solarized Light";
             "workbench.editor.highlightModifiedTabs" = true;
             "workbench.preferredDarkColorTheme" = "Solarized Dark";
             "workbench.preferredLightColorTheme" = "Solarized Light";
