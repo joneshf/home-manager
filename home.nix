@@ -578,6 +578,7 @@ in
         home-manager = {
           extensions = [
             pkgs.unstable.vscode-extensions.jnoortheen.nix-ide
+            pkgs.unstable.vscode-extensions.mkhl.direnv
             pkgs.unstable.vscode-extensions.vscodevim.vim
           ];
 
