@@ -238,8 +238,6 @@
                   # Optionally use extraSpecialArgs to pass through arguments to home.nix.
 
                   modules = [
-                    # Home Manager needs a bit of information about you and the paths it should manage.
-                    { home.homeDirectory = "/Users/joneshf"; }
                     { home.username = "joneshf"; }
                     ./home.nix
                     module-overlays
@@ -257,7 +255,7 @@
                   lib = pkgs.lib;
                 }
                 // {
-                  home = ./home.nix;
+                  "home.nix" = ./home.nix;
                 };
             };
 

@@ -198,6 +198,7 @@ in
 
   imports = [
     ./modules/commit-signing/module.nix
+    ./modules/home/home-directory-convention/module.nix
     ./modules/programs/crane/completions/module.nix
     ./modules/programs/fish/package-plugins/module.nix
     ./modules/programs/git/structural/module.nix
