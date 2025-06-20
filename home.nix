@@ -571,6 +571,15 @@ in
             pkgs.unstable.vscode-extensions.jnoortheen.nix-ide
             pkgs.unstable.vscode-extensions.mkhl.direnv
             pkgs.unstable.vscode-extensions.vscodevim.vim
+
+            (pkgs.unstable.vscode-utils.buildVscodeMarketplaceExtension {
+              mktplcRef = {
+                hash = "sha256-v9oyoqqBcbFSOOyhPa4dUXjA2IVXlCTORs4nrFGSHzE=";
+                name = "vscode-fileutils";
+                publisher = "sleistner";
+                version = "3.10.3";
+              };
+            })
           ];
 
           userSettings = {
