@@ -143,7 +143,6 @@ in
       pkgs.unstable.python312Packages.python-vipaccess
       pkgs.unstable.qbittorrent
       pkgs.unstable.rectangle
-      pkgs.unstable.spotify
       pkgs.unstable.uv
       pkgs.unstable.viddy
       pkgs.unstable.wireshark
@@ -192,6 +191,7 @@ in
   imports = [
     ./modules/commit-signing/module.nix
     ./modules/home/home-directory-convention/module.nix
+    ./modules/media/module.nix
     ./modules/nixpkgs/unfree-packages/module.nix
     ./modules/programs/fish/package-plugins/module.nix
     ./modules/programs/git/structural/module.nix
@@ -202,13 +202,21 @@ in
     ./modules/targets/darwin/copy-application-bundles/module.nix
   ];
 
+  # This comes from the `./modules/media/module.nix` module.
+  media = {
+    enable = true;
+
+    spotify = {
+      package = pkgs.unstable.spotify;
+    };
+  };
+
   nixpkgs = {
     # This comes from the `./modules/nixpkgs/unfree-packages/module.nix` module.
     unfree-packages = {
       allow = [
         "1password-cli"
         "onepassword-password-manager"
-        "spotify"
         "vscode"
       ];
 
