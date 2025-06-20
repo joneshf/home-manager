@@ -88,7 +88,6 @@ in
     # environment.
     packages = [
       pkgs.beancount
-      pkgs.crane
       pkgs.docker-credential-helpers
       pkgs.fava
       pkgs.ghostscript_headless
@@ -135,6 +134,7 @@ in
       pkgs.unstable.bazelisk
       pkgs.unstable.colima
       pkgs.unstable.git-absorb
+      pkgs.unstable.go-containerregistry
       pkgs.unstable.jjui
       pkgs.unstable.jnv
       pkgs.unstable.krew
@@ -199,7 +199,6 @@ in
   imports = [
     ./modules/commit-signing/module.nix
     ./modules/home/home-directory-convention/module.nix
-    ./modules/programs/crane/completions/module.nix
     ./modules/programs/fish/package-plugins/module.nix
     ./modules/programs/git/structural/module.nix
     ./modules/programs/git-spice/module.nix
@@ -225,13 +224,6 @@ in
 
     bat = {
       enable = true;
-    };
-
-    # This comes from the `./modules/programs/crane/completions/module.nix` module.
-    crane = {
-      completions = {
-        enable = true;
-      };
     };
 
     direnv = {
