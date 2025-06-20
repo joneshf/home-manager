@@ -4,13 +4,6 @@ let
   commit-email = "jones3.hardy@gmail.com";
 
   commit-username = "joneshf";
-
-  unfreePackages = [
-    "1password-cli"
-    "onepassword-password-manager"
-    "spotify"
-    "vscode"
-  ];
 in
 
 {
@@ -199,6 +192,7 @@ in
   imports = [
     ./modules/commit-signing/module.nix
     ./modules/home/home-directory-convention/module.nix
+    ./modules/nixpkgs/unfree-packages/module.nix
     ./modules/programs/fish/package-plugins/module.nix
     ./modules/programs/git/structural/module.nix
     ./modules/programs/git-spice/module.nix
@@ -209,8 +203,16 @@ in
   ];
 
   nixpkgs = {
-    config = {
-      allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) unfreePackages;
+    # This comes from the `./modules/nixpkgs/unfree-packages/module.nix` module.
+    unfree-packages = {
+      allow = [
+        "1password-cli"
+        "onepassword-password-manager"
+        "spotify"
+        "vscode"
+      ];
+
+      enable = true;
     };
   };
 
