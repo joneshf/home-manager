@@ -5,16 +5,12 @@ let
 
   commit-username = "joneshf";
 
-  home-directory = "/Users/${username}";
-
   unfreePackages = [
     "1password-cli"
     "onepassword-password-manager"
     "spotify"
     "vscode"
   ];
-
-  username = "joneshf";
 in
 
 {
@@ -87,9 +83,6 @@ in
         };
       };
     };
-
-    # Home Manager needs a bit of information about you and the paths it should manage.
-    homeDirectory = home-directory;
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
@@ -167,9 +160,9 @@ in
     # Extra directories to add to PATH.
     sessionPath = [
       # Add JetBrains scripts to path
-      "${home-directory}/Library/Application Support/JetBrains/Toolbox/scripts"
+      "${config.home.homeDirectory}/Library/Application Support/JetBrains/Toolbox/scripts"
       # Add cargo bin to path
-      "${home-directory}/.cargo/bin"
+      "${config.home.homeDirectory}/.cargo/bin"
     ];
 
     # Environment variables.
@@ -201,8 +194,6 @@ in
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
     stateVersion = "23.05"; # Please read the comment before changing.
-
-    inherit username;
   };
 
   imports = [
@@ -357,7 +348,7 @@ in
         };
 
         http = {
-          sslCAInfo = "${home-directory}/.ca-bundle.crt";
+          sslCAInfo = "${config.home.homeDirectory}/.ca-bundle.crt";
         };
 
         init = {
@@ -526,7 +517,7 @@ in
       matchBlocks = {
         "*" = {
           extraOptions = {
-            IdentityAgent = "\"${home-directory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\"";
+            IdentityAgent = "\"${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\"";
 
             IgnoreUnknown = "UseKeychain";
           };
