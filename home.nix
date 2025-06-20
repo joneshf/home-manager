@@ -637,6 +637,12 @@ in
           # they get overwritten each time `Terminal.app` starts because they're invalid.
         };
 
+        "com.apple.assistant.support" = {
+          "Search Queries Data Sharing Status" = 2;
+
+          "Siri Data Sharing Opt-In Status" = 2;
+        };
+
         "com.apple.controlcenter" = {
           BatteryShowPercentage = true;
         };
