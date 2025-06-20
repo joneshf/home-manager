@@ -643,8 +643,26 @@ in
           "Siri Data Sharing Opt-In Status" = 2;
         };
 
+        # The settings under "Control Center > Control Center Modules" (e.g. "Bluetooth" or "Wi-Fi") are enums.
+        # It's not clear what the values are,
+        # and finding documentation for mac is nigh-impossible.
+        #
+        # After much trial and error and searching through too many web pages,
+        # it seems that on older versions of macOS the values seem to be:
+        # - 18: Show in Menu Bar
+        # - 24: Don't Show in Menu Bar
+        #
+        # On newer versions of macOS the values seem to be:
+        # - 2: Show in Menu Bar
+        # - 8: Don't Show in Menu Bar
+        #
+        # We're going with the 18/24 version,
+        # since that seems safer.
+        # We might have to change that though.
         "com.apple.controlcenter" = {
           BatteryShowPercentage = true;
+
+          Bluetooth = 18;
         };
 
         "com.apple.dock" = {
