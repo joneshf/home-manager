@@ -1,23 +1,6 @@
 { config, pkgs, ... }:
 
-let
-  commit-email = "jones3.hardy@gmail.com";
-
-  commit-username = "joneshf";
-in
-
 {
-  commit-signing = {
-    enable = true;
-
-    # this comes from the `./modules/commit-signing/module.nix` module.
-    ssh = {
-      email = commit-email;
-
-      public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
-    };
-  };
-
   home = {
     file = {
       ".ideavimrc" = {
@@ -62,16 +45,6 @@ in
 
           in
           "${src}/plug.vim";
-      };
-
-      "Library/Application Support/jjui/config.toml" = {
-        source = pkgs.writers.writeTOML "config.toml" {
-          custom_commands = {
-            "simplify-parents" = {
-              args = [ "simplify-parents" ];
-            };
-          };
-        };
       };
     };
 
@@ -124,9 +97,7 @@ in
       pkgs.unstable.bazel-buildtools
       pkgs.unstable.bazelisk
       pkgs.unstable.colima
-      pkgs.unstable.git-absorb
       pkgs.unstable.go-containerregistry
-      pkgs.unstable.jjui
       pkgs.unstable.jnv
       pkgs.unstable.krew
       pkgs.unstable.kubernetes-helm
@@ -187,18 +158,15 @@ in
   };
 
   imports = [
-    ./modules/commit-signing/module.nix
     ./modules/home/home-directory-convention/module.nix
     ./modules/media/module.nix
     ./modules/nixpkgs/unfree-packages/module.nix
     ./modules/password-managers/module.nix
     ./modules/programs/fish/package-plugins/module.nix
-    ./modules/programs/git/structural/module.nix
-    ./modules/programs/git-spice/module.nix
     ./modules/programs/godot/module.nix
     ./modules/programs/pdm/module.nix
-    ./modules/programs/restack/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
+    ./modules/version-control/module.nix
   ];
 
   # This comes from the `./modules/media/module.nix` module.
@@ -342,63 +310,6 @@ in
       '';
     };
 
-    git = {
-      enable = true;
-
-      extraConfig = {
-        commit = {
-          cleanup = "scissors";
-
-          verbose = true;
-        };
-
-        help = {
-          autocorrect = 1;
-        };
-
-        http = {
-          sslCAInfo = "${config.home.homeDirectory}/.ca-bundle.crt";
-        };
-
-        init = {
-          defaultBranch = "main";
-        };
-
-        log = {
-          format = "fuller";
-        };
-
-        merge = {
-          conflictStyle = "diff3";
-        };
-      };
-
-      lfs = {
-        enable = true;
-      };
-
-      structural = {
-        enable = true;
-
-        package = pkgs.unstable.difftastic;
-      };
-
-      userEmail = commit-email;
-
-      userName = commit-username;
-    };
-
-    # This comes from the `./modules/programs/git-spice/module.nix` module.
-    git-spice = {
-      enable = true;
-
-      # Since `git-spice` only wants to make a `gs` binary available,
-      # we rename to something that doesn't conflict with `Ghostscript`'s `gs` binary.
-      # More things know about `Ghostscript` than `git-spice`,
-      # so it gets to keep its decades old name.
-      installed-binary-name = "git-spice";
-    };
-
     go = {
       enable = true;
     };
@@ -417,41 +328,6 @@ in
       enable = true;
     };
 
-    jujutsu = {
-      enable = true;
-
-      package = pkgs.unstable.jujutsu;
-
-      settings = {
-        templates = {
-          draft_commit_description = ''
-            concat(
-              coalesce(description, default_commit_description, "\n"),
-              surround(
-                "\nJJ: This commit contains the following changes:\n",
-                "",
-                indent("JJ:     ", diff.stat(72)),
-              ),
-              "\nJJ: ignore-rest\n",
-              diff.git(),
-            )
-          '';
-        };
-
-        ui = {
-          merge-editor = "mergiraf";
-
-          show-cryptographic-signatures = true;
-        };
-
-        user = {
-          email = commit-email;
-
-          name = commit-username;
-        };
-      };
-    };
-
     k9s = {
       enable = true;
 
@@ -460,12 +336,6 @@ in
 
     man = {
       generateCaches = false;
-    };
-
-    mergiraf = {
-      enable = true;
-
-      package = pkgs.unstable.mergiraf;
     };
 
     nh = {
@@ -512,11 +382,6 @@ in
 
     # This comes from the `./modules/programs/pdm/module.nix` module.
     pdm = {
-      enable = true;
-    };
-
-    # This comes from the `./modules/programs/restack/module.nix` module.
-    restack = {
       enable = true;
     };
 
@@ -776,5 +641,37 @@ in
         };
       };
     };
+  };
+
+  version-control = {
+    email = "jones3.hardy@gmail.com";
+
+    enable = true;
+
+    git = {
+      git-absorb = {
+        package = pkgs.unstable.git-absorb;
+      };
+
+      structural = {
+        package = pkgs.unstable.difftastic;
+      };
+    };
+
+    jujutsu = {
+      jjui = {
+        package = pkgs.unstable.jjui;
+      };
+
+      package = pkgs.unstable.jujutsu;
+    };
+
+    mergiraf = {
+      package = pkgs.unstable.mergiraf;
+    };
+
+    ssh-public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
+
+    username = "joneshf";
   };
 }
