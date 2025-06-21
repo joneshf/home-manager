@@ -1,6 +1,18 @@
 { config, pkgs, ... }:
 
 {
+  browsers = {
+    enable = true;
+
+    chromium = {
+      package = pkgs.brew-nix.chromium;
+    };
+
+    duckduckgo = {
+      package = pkgs.brew-nix.duckduckgo;
+    };
+  };
+
   editors = {
     enable = true;
   };
@@ -58,9 +70,7 @@
       pkgs.brew-nix.arduino-ide
       pkgs.brew-nix.buckets
       pkgs.brew-nix.calibre
-      pkgs.brew-nix.chromium
       pkgs.brew-nix.discord
-      pkgs.brew-nix.duckduckgo
       pkgs.brew-nix.elgato-stream-deck
       pkgs.brew-nix.freecad
       pkgs.brew-nix.handbrake
@@ -109,6 +119,7 @@
   };
 
   imports = [
+    ./modules/browsers/module.nix
     ./modules/editors/module.nix
     ./modules/home/home-directory-convention/module.nix
     ./modules/media/module.nix
@@ -159,73 +170,6 @@
 
       nix-direnv = {
         enable = true;
-      };
-    };
-
-    firefox = {
-      enable = true;
-
-      policies = {
-        DisableTelemetry = true;
-
-        EnableTrackingProtection = {
-          Cryptomining = true;
-
-          EmailTracking = true;
-
-          Fingerprinting = true;
-
-          Value = true;
-        };
-
-        FirefoxSuggest = {
-          ImproveSuggest = false;
-
-          Locked = true;
-
-          SponsoredSuggestions = false;
-
-          WebSuggestions = false;
-        };
-
-        SearchEngines = {
-          Remove = [
-            "Amazon.com"
-            "Bing"
-            "Google"
-            "eBay"
-          ];
-        };
-
-        SearchSuggestEnabled = false;
-      };
-
-      profiles = {
-        home-manager = {
-          extensions = {
-            packages = [
-              pkgs.firefox-addons.ublock-origin
-            ];
-          };
-
-          search = {
-            default = "ddg";
-
-            force = true;
-          };
-
-          settings = {
-            # `3` checks the box for "General > Startup > Open previous windows and tabs"
-            "browser.startup.page" = 3;
-
-            # Allow extensions to be auto-enabled
-            "extensions.autoDisableScopes" = 0;
-
-            "extensions.update.autoUpdateDefault" = false;
-
-            "extensions.update.enabled" = false;
-          };
-        };
       };
     };
 
