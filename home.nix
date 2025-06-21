@@ -14,8 +14,6 @@ in
     ssh = {
       email = commit-email;
 
-      program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-
       public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
     };
   };
@@ -193,6 +191,7 @@ in
     ./modules/home/home-directory-convention/module.nix
     ./modules/media/module.nix
     ./modules/nixpkgs/unfree-packages/module.nix
+    ./modules/password-managers/module.nix
     ./modules/programs/fish/package-plugins/module.nix
     ./modules/programs/git/structural/module.nix
     ./modules/programs/git-spice/module.nix
@@ -215,8 +214,6 @@ in
     # This comes from the `./modules/nixpkgs/unfree-packages/module.nix` module.
     unfree-packages = {
       allow = [
-        "1password-cli"
-        "onepassword-password-manager"
         "vscode"
       ];
 
@@ -224,14 +221,24 @@ in
     };
   };
 
-  programs = {
-    # This comes from the `_1password-shell-plugins` module.
-    _1password-shell-plugins = {
-      enable = true;
+  # This comes from the `./modules/password-managers/module.nix` module.
+  password-managers = {
+    enable = true;
 
-      plugins = [ pkgs.unstable.gh ];
+    "1password" = {
+      firefox = {
+        profiles = [
+          "home-manager"
+        ];
+      };
+
+      shell-plugins = {
+        packages = [ pkgs.unstable.gh ];
+      };
     };
+  };
 
+  programs = {
     bat = {
       enable = true;
     };
@@ -294,7 +301,6 @@ in
         home-manager = {
           extensions = {
             packages = [
-              pkgs.firefox-addons.onepassword-password-manager
               pkgs.firefox-addons.ublock-origin
             ];
           };
@@ -516,16 +522,6 @@ in
 
     ssh = {
       enable = true;
-
-      matchBlocks = {
-        "*" = {
-          extraOptions = {
-            IdentityAgent = "\"${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\"";
-
-            IgnoreUnknown = "UseKeychain";
-          };
-        };
-      };
     };
 
     starship = {
