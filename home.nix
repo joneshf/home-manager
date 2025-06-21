@@ -1,53 +1,11 @@
 { config, pkgs, ... }:
 
 {
+  editors = {
+    enable = true;
+  };
+
   home = {
-    file = {
-      ".ideavimrc" = {
-        source = ./home-files/.ideavimrc;
-      };
-
-      ".intellimacs" = {
-        recursive = true;
-
-        source = pkgs.fetchFromGitHub {
-          owner = "MarcoIeni";
-
-          repo = "intellimacs";
-
-          rev = "cf9706cfeaf18e2247ee8f8c8289f1d196ce04b9";
-
-          sha256 = "sha256-uANOwkA9EB3n1Kd+55420LJD7wrc4EDQ7z127HLvM2o=";
-        };
-      };
-
-      # When `home-manager` is in control of `vim`,
-      # it doesn't create a `~/.vimrc` file.
-      # It uses the file in the `nix` store directly without symlinking it.
-      # We want a `~/.vimrc` file to exist so we don't get confused with what is giving `vim` behavior.
-      # So we explicitly write out the file here.
-      ".vimrc" = {
-        source = ./home-files/.vimrc;
-      };
-
-      ".vim/autoload/plug.vim" = {
-        source =
-          let
-            src = pkgs.fetchFromGitHub {
-              owner = "junegunn";
-
-              repo = "vim-plug";
-
-              rev = "d80f495fabff8446972b8695ba251ca636a047b0";
-
-              sha256 = "sha256-d8LZYiJzAOtWGIXUJ7788SnJj44nhdZB0mT5QW3itAY=";
-            };
-
-          in
-          "${src}/plug.vim";
-      };
-    };
-
     # The home.packages option allows you to install Nix packages into your
     # environment.
     packages = [
@@ -62,7 +20,6 @@
       pkgs.ghostscript_headless
       pkgs.gnugrep
       pkgs.go-containerregistry
-      pkgs.jetbrains-toolbox
       pkgs.jnv
       pkgs.krew
       pkgs.kubectl
@@ -93,7 +50,6 @@
       pkgs.utm
       pkgs.uv
       pkgs.viddy
-      pkgs.vim
       pkgs.wireshark
       pkgs.yarn
       pkgs.yq-go
@@ -119,16 +75,12 @@
 
     # Extra directories to add to PATH.
     sessionPath = [
-      # Add JetBrains scripts to path
-      "${config.home.homeDirectory}/Library/Application Support/JetBrains/Toolbox/scripts"
       # Add cargo bin to path
       "${config.home.homeDirectory}/.cargo/bin"
     ];
 
     # Environment variables.
     sessionVariables = {
-      EDITOR = "vim";
-
       # `nh` needs the location of the `nix-darwin` flake.
       NH_DARWIN_FLAKE = "/etc/nix-darwin";
 
@@ -157,6 +109,7 @@
   };
 
   imports = [
+    ./modules/editors/module.nix
     ./modules/home/home-directory-convention/module.nix
     ./modules/media/module.nix
     ./modules/nixpkgs/unfree-packages/module.nix
@@ -171,18 +124,6 @@
   # This comes from the `./modules/media/module.nix` module.
   media = {
     enable = true;
-  };
-
-  nixpkgs = {
-    # This comes from the `./modules/nixpkgs/unfree-packages/module.nix` module.
-    unfree-packages = {
-      allow = [
-        "jetbrains-toolbox"
-        "vscode"
-      ];
-
-      enable = true;
-    };
   };
 
   # This comes from the `./modules/password-managers/module.nix` module.
@@ -401,58 +342,6 @@
         };
       };
     };
-
-    vscode = {
-      enable = true;
-
-      profiles = {
-        default = {
-          enableExtensionUpdateCheck = false;
-
-          enableUpdateCheck = false;
-        };
-
-        home-manager = {
-          extensions = [
-            pkgs.vscode-extensions.jnoortheen.nix-ide
-            pkgs.vscode-extensions.mkhl.direnv
-            pkgs.vscode-extensions.vscodevim.vim
-
-            (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-              mktplcRef = {
-                hash = "sha256-v9oyoqqBcbFSOOyhPa4dUXjA2IVXlCTORs4nrFGSHzE=";
-                name = "vscode-fileutils";
-                publisher = "sleistner";
-                version = "3.10.3";
-              };
-            })
-          ];
-
-          userSettings = {
-            # Different key bindings will ask to turn on screen reader support.
-            # We explicitly set it to `"off"` so VSCode doesn't pop up a modal at random times.
-            "editor.accessibilitySupport" = "off";
-            "editor.cursorBlinking" = "expand";
-            "editor.cursorStyle" = "line";
-            "editor.formatOnPaste" = true;
-            "editor.formatOnSave" = true;
-            "editor.renderWhitespace" = "all";
-            "editor.rulers" = [ 80 ];
-            "editor.wordWrap" = "off";
-            "files.insertFinalNewline" = true;
-            "files.trimFinalNewlines" = true;
-            "files.trimTrailingWhitespace" = true;
-            "nix.enableLanguageServer" = true;
-            "purescript.addNpmPath" = true;
-            "window.autoDetectColorScheme" = true;
-            "window.zoomLevel" = 2;
-            "workbench.editor.highlightModifiedTabs" = true;
-            "workbench.preferredDarkColorTheme" = "Solarized Dark";
-            "workbench.preferredLightColorTheme" = "Solarized Light";
-          };
-        };
-      };
-    };
   };
 
   targets = {
@@ -608,18 +497,6 @@
 
           # This is the setting for "Accessibility > Zoom > Zoom style".
           closeViewZoomMode = 1;
-        };
-
-        "com.microsoft.VSCode" = {
-          # Disable special character pop-up,
-          # so holding a key repeats it in VS Code.
-          ApplePressAndHoldEnabled = false;
-        };
-
-        "com.jetbrains.WebStorm" = {
-          # Disable special character pop-up,
-          # so holding a key repeats it in WebStorm.
-          ApplePressAndHoldEnabled = false;
         };
       };
     };
