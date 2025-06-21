@@ -62,6 +62,7 @@
       pkgs.ghostscript_headless
       pkgs.gnugrep
       pkgs.go-containerregistry
+      pkgs.jetbrains-toolbox
       pkgs.jnv
       pkgs.krew
       pkgs.kubectl
@@ -107,7 +108,6 @@
       pkgs.brew-nix.elgato-stream-deck
       pkgs.brew-nix.freecad
       pkgs.brew-nix.handbrake
-      pkgs.brew-nix.jetbrains-toolbox
       pkgs.brew-nix.kicad
       pkgs.brew-nix.krita
       pkgs.brew-nix.makemkv
@@ -177,6 +177,7 @@
     # This comes from the `./modules/nixpkgs/unfree-packages/module.nix` module.
     unfree-packages = {
       allow = [
+        "jetbrains-toolbox"
         "vscode"
       ];
 
