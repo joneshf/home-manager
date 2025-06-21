@@ -51,28 +51,52 @@
     # The home.packages option allows you to install Nix packages into your
     # environment.
     packages = [
+      pkgs.awscli2
+      pkgs.bazel_7
+      pkgs.bazel-buildtools
+      pkgs.bazelisk
       pkgs.beancount
+      pkgs.colima
       pkgs.docker-credential-helpers
       pkgs.fava
       pkgs.ghostscript_headless
       pkgs.gnugrep
+      pkgs.go-containerregistry
+      pkgs.jnv
+      pkgs.krew
       pkgs.kubectl
       pkgs.kubelogin-oidc
+      pkgs.kubernetes-helm
+      pkgs.moonlight-qt
       pkgs.nerd-fonts.fira-code
       pkgs.nerd-fonts.open-dyslexic
       pkgs.nil
+      pkgs.nix-output-monitor
+      pkgs.nixfmt-rfc-style
       pkgs.nixpkgs-fmt
+      pkgs.nmap
       pkgs.nodejs_22
       pkgs.oath-toolkit
+      pkgs.openldap
+      pkgs.openscad
+      pkgs.opentofu
       pkgs.pdfchain
       pkgs.pdftk
+      pkgs.pv-migrate
+      pkgs.python312Packages.python-vipaccess
+      pkgs.qbittorrent
       pkgs.qrencode
+      pkgs.rectangle
       pkgs.rename
       pkgs.tree
       pkgs.utm
+      pkgs.uv
+      pkgs.viddy
       pkgs.vim
+      pkgs.wireshark
       pkgs.yarn
       pkgs.yq-go
+      pkgs.zotero
 
       pkgs.brew-nix.arduino-ide
       pkgs.brew-nix.buckets
@@ -91,31 +115,6 @@
       pkgs.brew-nix.obsidian
       pkgs.brew-nix.signal
       pkgs.brew-nix.turbotax-2024
-
-      pkgs.unstable.awscli2
-      pkgs.unstable.bazel_7
-      pkgs.unstable.bazel-buildtools
-      pkgs.unstable.bazelisk
-      pkgs.unstable.colima
-      pkgs.unstable.go-containerregistry
-      pkgs.unstable.jnv
-      pkgs.unstable.krew
-      pkgs.unstable.kubernetes-helm
-      pkgs.unstable.moonlight-qt
-      pkgs.unstable.nix-output-monitor
-      pkgs.unstable.nixfmt-rfc-style
-      pkgs.unstable.nmap
-      pkgs.unstable.openldap
-      pkgs.unstable.openscad
-      pkgs.unstable.opentofu
-      pkgs.unstable.pv-migrate
-      pkgs.unstable.python312Packages.python-vipaccess
-      pkgs.unstable.qbittorrent
-      pkgs.unstable.rectangle
-      pkgs.unstable.uv
-      pkgs.unstable.viddy
-      pkgs.unstable.wireshark
-      pkgs.unstable.zotero
     ];
 
     # Extra directories to add to PATH.
@@ -172,10 +171,6 @@
   # This comes from the `./modules/media/module.nix` module.
   media = {
     enable = true;
-
-    spotify = {
-      package = pkgs.unstable.spotify;
-    };
   };
 
   nixpkgs = {
@@ -201,7 +196,7 @@
       };
 
       shell-plugins = {
-        packages = [ pkgs.unstable.gh ];
+        packages = [ pkgs.gh ];
       };
     };
   };
@@ -227,8 +222,6 @@
 
     firefox = {
       enable = true;
-
-      package = pkgs.unstable.firefox;
 
       policies = {
         DisableTelemetry = true;
@@ -298,8 +291,6 @@
       # Use fish!
       enable = true;
 
-      package = pkgs.unstable.fish;
-
       # This comes from the `./modules/programs/fish/package-plugins/module.nix` module.
       package-plugins = [
         (pkgs.callPackage ./packages/nix-env.fish/package.nix { })
@@ -330,8 +321,6 @@
 
     k9s = {
       enable = true;
-
-      package = pkgs.unstable.k9s;
     };
 
     man = {
@@ -340,14 +329,10 @@
 
     nh = {
       enable = true;
-
-      package = pkgs.unstable.nh;
     };
 
     numbat = {
       enable = true;
-
-      package = pkgs.unstable.numbat;
     };
 
     nushell = {
@@ -392,8 +377,6 @@
     starship = {
       enable = true;
 
-      package = pkgs.unstable.starship;
-
       settings = {
         battery = {
           display = [
@@ -421,8 +404,6 @@
     vscode = {
       enable = true;
 
-      package = pkgs.unstable.vscode;
-
       profiles = {
         default = {
           enableExtensionUpdateCheck = false;
@@ -432,11 +413,11 @@
 
         home-manager = {
           extensions = [
-            pkgs.unstable.vscode-extensions.jnoortheen.nix-ide
-            pkgs.unstable.vscode-extensions.mkhl.direnv
-            pkgs.unstable.vscode-extensions.vscodevim.vim
+            pkgs.vscode-extensions.jnoortheen.nix-ide
+            pkgs.vscode-extensions.mkhl.direnv
+            pkgs.vscode-extensions.vscodevim.vim
 
-            (pkgs.unstable.vscode-utils.buildVscodeMarketplaceExtension {
+            (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
               mktplcRef = {
                 hash = "sha256-v9oyoqqBcbFSOOyhPa4dUXjA2IVXlCTORs4nrFGSHzE=";
                 name = "vscode-fileutils";
@@ -647,28 +628,6 @@
     email = "jones3.hardy@gmail.com";
 
     enable = true;
-
-    git = {
-      git-absorb = {
-        package = pkgs.unstable.git-absorb;
-      };
-
-      structural = {
-        package = pkgs.unstable.difftastic;
-      };
-    };
-
-    jujutsu = {
-      jjui = {
-        package = pkgs.unstable.jjui;
-      };
-
-      package = pkgs.unstable.jujutsu;
-    };
-
-    mergiraf = {
-      package = pkgs.unstable.mergiraf;
-    };
 
     ssh-public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
 

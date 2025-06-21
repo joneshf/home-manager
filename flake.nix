@@ -31,7 +31,7 @@
         };
 
         nixpkgs = {
-          follows = "nixpkgs-unstable";
+          follows = "nixpkgs";
         };
       };
 
@@ -49,7 +49,7 @@
 
       inputs = {
         nixpkgs = {
-          follows = "nixpkgs-unstable";
+          follows = "nixpkgs";
         };
       };
 
@@ -65,7 +65,7 @@
     flake-parts = {
       inputs = {
         nixpkgs-lib = {
-          follows = "nixpkgs-unstable";
+          follows = "nixpkgs";
         };
       };
 
@@ -81,7 +81,7 @@
     git-hooks_nix = {
       inputs = {
         nixpkgs = {
-          follows = "nixpkgs-unstable";
+          follows = "nixpkgs";
         };
       };
 
@@ -103,7 +103,7 @@
 
       owner = "nix-community";
 
-      ref = "release-25.05";
+      ref = "master";
 
       repo = "home-manager";
 
@@ -111,16 +111,6 @@
     };
 
     nixpkgs = {
-      owner = "nixos";
-
-      ref = "nixos-25.05";
-
-      repo = "nixpkgs";
-
-      type = "github";
-    };
-
-    nixpkgs-unstable = {
       owner = "NixOS";
 
       ref = "nixos-unstable";
@@ -130,10 +120,20 @@
       type = "github";
     };
 
+    nixpkgs-stable = {
+      owner = "nixos";
+
+      ref = "nixos-25.05";
+
+      repo = "nixpkgs";
+
+      type = "github";
+    };
+
     treefmt-nix = {
       inputs = {
         nixpkgs = {
-          follows = "nixpkgs-unstable";
+          follows = "nixpkgs";
         };
       };
 
@@ -187,7 +187,7 @@
                     overlays = [
                       inputs.firefox-addons.overlays.default
                       overlay-brew-nix
-                      overlay-unstable
+                      overlay-stable
                     ];
                   };
                 };
@@ -230,7 +230,7 @@
                 ) inputs.brew-nix.outputs.packages.${final.system};
               };
 
-              overlay-unstable = _final: prev: { unstable = prev.callPackage inputs.nixpkgs-unstable { }; };
+              overlay-stable = _final: prev: { stable = prev.callPackage inputs.nixpkgs-stable { }; };
             in
             {
               homeConfigurations = {
