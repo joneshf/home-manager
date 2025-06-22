@@ -201,6 +201,20 @@
       enable = true;
     };
 
+    gpg = {
+      enable = true;
+
+      publicKeys = [
+        # GitHub public GPG key.
+        {
+          source = pkgs.fetchurl {
+            hash = "sha256-bor2h/YM8/QDFRyPsbJuleb55CTKYMyPN4e9RGaj74Q=";
+            url = "https://github.com/web-flow.gpg";
+          };
+        }
+      ];
+    };
+
     home-manager = {
       # Let Home Manager install and manage itself.
       enable = true;
