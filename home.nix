@@ -17,6 +17,10 @@
     enable = true;
   };
 
+  gpg = {
+    enable = true;
+  };
+
   home = {
     # The home.packages option allows you to install Nix packages into your
     # environment.
@@ -120,6 +124,7 @@
   imports = [
     ./modules/browsers/module.nix
     ./modules/editors/module.nix
+    ./modules/gpg/module.nix
     ./modules/home/home-directory-convention/module.nix
     ./modules/macos/module.nix
     ./modules/media/module.nix
@@ -186,10 +191,6 @@
       package-plugins = [
         (pkgs.callPackage ./packages/nix-env.fish/package.nix { })
       ];
-
-      shellInit = ''
-        set --export GPG_TTY (tty)
-      '';
     };
 
     go = {
@@ -199,20 +200,6 @@
     # This comes from the `./modules/programs/godot/module.nix` module.
     godot = {
       enable = true;
-    };
-
-    gpg = {
-      enable = true;
-
-      publicKeys = [
-        # GitHub public GPG key.
-        {
-          source = pkgs.fetchurl {
-            hash = "sha256-bor2h/YM8/QDFRyPsbJuleb55CTKYMyPN4e9RGaj74Q=";
-            url = "https://github.com/web-flow.gpg";
-          };
-        }
-      ];
     };
 
     home-manager = {
@@ -243,10 +230,6 @@
     nushell = {
       # Trying out Nushell: https://www.nushell.sh/.
       enable = true;
-
-      extraEnv = ''
-        $env.GPG_TTY = (tty)
-      '';
     };
 
     # This comes from the `./modules/programs/pdm/module.nix` module.
