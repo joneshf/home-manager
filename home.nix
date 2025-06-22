@@ -232,27 +232,6 @@
 
       extraEnv = ''
         $env.GPG_TTY = (tty)
-
-        # Setup PEP582 for pdm
-        # Unfortunately, `pdm` doesn't support `nushell`.
-        # We use the output of the `fish` support to munge something out of it.
-        $env.PYTHONPATH = (
-          # Evaluate `pdm --pep582` in fish,
-          # and return a environment-separated string.
-          | ${pkgs.fish}/bin/fish --command='eval (${pkgs.pdm}/bin/pdm --pep582); echo "$PYTHONPATH"'
-          # Split the string into a list based on the environment separator.
-          | split row (char env_sep)
-          # Remove any whitespace that might've snuck in.
-          | str trim
-          # Prepend the values by appending the previous values (if they exist).
-          | append $env.PYTHONPATH?
-          # Remove any duplicates we might've added.
-          | uniq
-          # Remove any blanks we might've added.
-          | compact
-          # Join the list back into a string with the environment separator.
-          | str join (char env_sep)
-        )
       '';
     };
 
