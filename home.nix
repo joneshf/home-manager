@@ -620,6 +620,10 @@ in
       };
 
       defaults = {
+        NSGlobalDomain = {
+          AppleICUForce24HourTime = true;
+        };
+
         "com.apple.ActivityMonitor" = {
           IconType = 6;
         };
@@ -741,8 +745,6 @@ in
 
         "com.apple.menuextra.clock" = {
           FlashDateSeparators = true;
-
-          Show24Hour = true;
 
           ShowAMPM = false;
 
