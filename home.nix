@@ -17,6 +17,18 @@
     enable = true;
   };
 
+  finance = {
+    enable = true;
+
+    buckets = {
+      package = pkgs.brew-nix.buckets;
+    };
+
+    turbotax-2024 = {
+      package = pkgs.brew-nix.turbotax-2024;
+    };
+  };
+
   gpg = {
     enable = true;
   };
@@ -29,10 +41,8 @@
       pkgs.bazel_7
       pkgs.bazel-buildtools
       pkgs.bazelisk
-      pkgs.beancount
       pkgs.colima
       pkgs.docker-credential-helpers
-      pkgs.fava
       pkgs.ghostscript_headless
       pkgs.gnugrep
       pkgs.go-containerregistry
@@ -71,7 +81,6 @@
       pkgs.zotero
 
       pkgs.brew-nix.arduino-ide
-      pkgs.brew-nix.buckets
       pkgs.brew-nix.calibre
       pkgs.brew-nix.discord
       pkgs.brew-nix.elgato-stream-deck
@@ -83,7 +92,6 @@
       pkgs.brew-nix.mqtt-explorer
       pkgs.brew-nix.obsidian
       pkgs.brew-nix.signal
-      pkgs.brew-nix.turbotax-2024
     ];
 
     # Extra directories to add to PATH.
@@ -124,6 +132,7 @@
   imports = [
     ./modules/browsers/module.nix
     ./modules/editors/module.nix
+    ./modules/finance/module.nix
     ./modules/gpg/module.nix
     ./modules/home/home-directory-convention/module.nix
     ./modules/macos/module.nix
