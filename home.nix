@@ -54,9 +54,6 @@
       pkgs.moonlight-qt
       pkgs.nerd-fonts.fira-code
       pkgs.nerd-fonts.open-dyslexic
-      pkgs.nil
-      pkgs.nix-output-monitor
-      pkgs.nixfmt-rfc-style
       pkgs.nixpkgs-fmt
       pkgs.nmap
       pkgs.nodejs_22
@@ -102,12 +99,6 @@
 
     # Environment variables.
     sessionVariables = {
-      # `nh` needs the location of the `nix-darwin` flake.
-      NH_DARWIN_FLAKE = "/etc/nix-darwin";
-
-      # `nh` needs the location of the `home-manager` flake.
-      NH_HOME_FLAKE = "${config.xdg.configHome}/home-manager";
-
       # `fish` changed how they handle commands and keywords.
       # See https://github.com/fish-shell/fish-shell/pull/10758.
       # It's actually really nice to see them wanting to improve this sort of thing.
@@ -143,6 +134,7 @@
     ./modules/programs/godot/module.nix
     ./modules/programs/pdm/module.nix
     ./modules/targets/darwin/copy-application-bundles/module.nix
+    ./modules/usable-nix/module.nix
     ./modules/version-control/module.nix
   ];
 
@@ -178,20 +170,6 @@
       enable = true;
     };
 
-    direnv = {
-      config = {
-        global = {
-          strict_env = true;
-        };
-      };
-
-      enable = true;
-
-      nix-direnv = {
-        enable = true;
-      };
-    };
-
     fish = {
       # Use fish!
       enable = true;
@@ -211,11 +189,6 @@
       enable = true;
     };
 
-    home-manager = {
-      # Let Home Manager install and manage itself.
-      enable = true;
-    };
-
     jq = {
       enable = true;
     };
@@ -226,10 +199,6 @@
 
     man = {
       generateCaches = false;
-    };
-
-    nh = {
-      enable = true;
     };
 
     numbat = {
@@ -275,6 +244,18 @@
           disabled = false;
         };
       };
+    };
+  };
+
+  usable-nix = {
+    enable = true;
+
+    nh = {
+      # `nh` needs the location of the `home-manager` flake.
+      home-manager-flake = "${config.xdg.configHome}/home-manager";
+
+      # `nh` needs the location of the `nix-darwin` flake.
+      nix-darwin-flake = "/etc/nix-darwin";
     };
   };
 
