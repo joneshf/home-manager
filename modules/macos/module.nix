@@ -181,6 +181,225 @@
           ];
         };
       })
+
+      (lib.modules.mkIf config.macos."System Settings".enable (
+        lib.modules.mkMerge [
+          (lib.modules.mkIf config.macos."System Settings".Trackpad.enable (
+            lib.modules.mkMerge [
+              (lib.modules.mkIf config.macos."System Settings".Trackpad."Point & Click".enable (
+                lib.modules.mkMerge [
+                  (lib.modules.mkIf
+                    config.macos."System Settings".Trackpad."Point & Click"."Force Click and haptic feedback".enable
+                    (
+                      lib.modules.mkMerge [
+                        {
+                          targets = {
+                            darwin = {
+                              defaults = {
+                                "com.apple.AppleMultitouchTrackpad" = {
+                                  ActuateDetents = true;
+
+                                  ForceSuppressed = false;
+                                };
+
+                                "com.apple.preference.trackpad" = {
+                                  ForceClickSavedState = true;
+                                };
+                              };
+                            };
+                          };
+                        }
+
+                        (lib.modules.mkIf
+                          (config.macos."System Settings".Trackpad."Point & Click"."Look up & data detectors" == "Off")
+                          {
+                            targets = {
+                              darwin = {
+                                currentHostDefaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.threeFingerTapGesture" = 0;
+                                  };
+                                };
+
+                                defaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.forceClick" = 0;
+                                  };
+
+                                  "com.apple.AppleMultitouchTrackpad" = {
+                                    TrackpadThreeFingerTapGesture = 0;
+                                  };
+
+                                  "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+                                    TrackpadThreeFingerTapGesture = 0;
+                                  };
+                                };
+                              };
+                            };
+                          }
+                        )
+
+                        (lib.modules.mkIf
+                          (
+                            config.macos."System Settings".Trackpad."Point & Click"."Look up & data detectors"
+                            == "Force Click with One Finger"
+                          )
+                          {
+                            targets = {
+                              darwin = {
+                                currentHostDefaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.threeFingerTapGesture" = 0;
+                                  };
+                                };
+
+                                defaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.forceClick" = 1;
+                                  };
+
+                                  "com.apple.AppleMultitouchTrackpad" = {
+                                    TrackpadThreeFingerTapGesture = 0;
+                                  };
+
+                                  "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+                                    TrackpadThreeFingerTapGesture = 0;
+                                  };
+                                };
+                              };
+                            };
+                          }
+                        )
+
+                        (lib.modules.mkIf
+                          (
+                            config.macos."System Settings".Trackpad."Point & Click"."Look up & data detectors"
+                            == "Tap with Three Fingers"
+                          )
+                          {
+                            targets = {
+                              darwin = {
+                                currentHostDefaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.threeFingerTapGesture" = 2;
+                                  };
+                                };
+
+                                defaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.forceClick" = 2;
+                                  };
+
+                                  "com.apple.AppleMultitouchTrackpad" = {
+                                    TrackpadThreeFingerTapGesture = 2;
+                                  };
+
+                                  "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+                                    TrackpadThreeFingerTapGesture = 2;
+                                  };
+                                };
+                              };
+                            };
+                          }
+                        )
+                      ]
+                    )
+                  )
+
+                  (lib.modules.mkIf
+                    (!config.macos."System Settings".Trackpad."Point & Click"."Force Click and haptic feedback".enable)
+                    (
+                      lib.modules.mkMerge [
+                        {
+                          targets = {
+                            darwin = {
+                              defaults = {
+                                "com.apple.AppleMultitouchTrackpad" = {
+                                  ActuateDetents = false;
+
+                                  ForceSuppressed = true;
+                                };
+
+                                "com.apple.preference.trackpad" = {
+                                  ForceClickSavedState = false;
+                                };
+                              };
+                            };
+                          };
+                        }
+
+                        (lib.modules.mkIf
+                          (config.macos."System Settings".Trackpad."Point & Click"."Look up & data detectors" == "Off")
+                          {
+                            targets = {
+                              darwin = {
+                                currentHostDefaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.threeFingerTapGesture" = 0;
+                                  };
+                                };
+
+                                defaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.forceClick" = 0;
+                                  };
+
+                                  "com.apple.AppleMultitouchTrackpad" = {
+                                    TrackpadThreeFingerTapGesture = 0;
+                                  };
+
+                                  "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+                                    TrackpadThreeFingerTapGesture = 0;
+                                  };
+                                };
+                              };
+                            };
+                          }
+                        )
+
+                        (lib.modules.mkIf
+                          (
+                            config.macos."System Settings".Trackpad."Point & Click"."Look up & data detectors"
+                            == "Force Click with One Finger"
+                            ||
+                              config.macos."System Settings".Trackpad."Point & Click"."Look up & data detectors"
+                              == "Tap with Three Fingers"
+                          )
+                          {
+                            targets = {
+                              darwin = {
+                                currentHostDefaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.threeFingerTapGesture" = 2;
+                                  };
+                                };
+
+                                defaults = {
+                                  NSGlobalDomain = {
+                                    "com.apple.trackpad.forceClick" = 2;
+                                  };
+
+                                  "com.apple.AppleMultitouchTrackpad" = {
+                                    TrackpadThreeFingerTapGesture = 2;
+                                  };
+
+                                  "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+                                    TrackpadThreeFingerTapGesture = 2;
+                                  };
+                                };
+                              };
+                            };
+                          }
+                        )
+                      ]
+                    )
+                  )
+                ]
+              ))
+            ]
+          ))
+        ]
+      ))
     ]
   );
 
@@ -204,6 +423,38 @@
         };
 
         package = pkgs.callPackage ../../lib/mk-package-option.nix { } pkgs "rectangle" { };
+      };
+
+      "System Settings" = {
+        enable = lib.options.mkEnableOption "System Settings" // {
+          default = config.macos.enable;
+        };
+
+        Trackpad = {
+          enable = lib.options.mkEnableOption "Trackpad" // {
+            default = config.macos."System Settings".enable;
+          };
+
+          "Point & Click" = {
+            enable = lib.options.mkEnableOption "Point & Click" // {
+              default = config.macos."System Settings".Trackpad.enable;
+            };
+
+            "Force Click and haptic feedback" = {
+              enable = lib.options.mkEnableOption "Force Click and haptic feedback";
+            };
+
+            "Look up & data detectors" = lib.options.mkOption {
+              default = "Tap with Three Fingers";
+
+              type = lib.types.enum [
+                "Off"
+                "Force Click with One Finger"
+                "Tap with Three Fingers"
+              ];
+            };
+          };
+        };
       };
     };
   };
