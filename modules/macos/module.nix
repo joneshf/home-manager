@@ -143,7 +143,7 @@
                 ShowSeconds = true;
               };
 
-              "com.apple.universalaccess.plist" = {
+              "com.apple.universalaccess" = {
                 # This is the setting for "Accessibility > Zoom > Use keyboard shortcuts to zoom".
                 closeViewHotkeysEnabled = true;
 
