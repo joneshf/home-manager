@@ -186,6 +186,135 @@
         lib.modules.mkMerge [
           (lib.modules.mkIf config.macos."System Settings".Trackpad.enable (
             lib.modules.mkMerge [
+              (lib.modules.mkIf config.macos."System Settings".Trackpad."More Gestures".enable (
+                lib.modules.mkMerge [
+                  (lib.modules.mkIf
+                    (config.macos."System Settings".Trackpad."More Gestures"."Swipe between pages" == "Off")
+                    {
+                      targets = {
+                        darwin = {
+                          currentHostDefaults = {
+                            NSGlobalDomain = {
+                              "com.apple.trackpad.threeFingerHorizSwipeGesture" = 0;
+                            };
+                          };
+
+                          defaults = {
+                            NSGlobalDomain = {
+                              AppleEnableSwipeNavigateWithScrolls = 0;
+                            };
+
+                            "com.apple.AppleMultitouchTrackpad" = {
+                              TrackpadThreeFingerHorizSwipeGesture = 0;
+                            };
+
+                            "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+                              TrackpadThreeFingerHorizSwipeGesture = 0;
+                            };
+                          };
+                        };
+                      };
+                    }
+                  )
+
+                  (lib.modules.mkIf
+                    (
+                      config.macos."System Settings".Trackpad."More Gestures"."Swipe between pages"
+                      == "Scroll Left or Right with Two Fingers"
+                    )
+                    {
+                      targets = {
+                        darwin = {
+                          currentHostDefaults = {
+                            NSGlobalDomain = {
+                              "com.apple.trackpad.threeFingerHorizSwipeGesture" = 2;
+                            };
+                          };
+
+                          defaults = {
+                            NSGlobalDomain = {
+                              AppleEnableSwipeNavigateWithScrolls = 1;
+                            };
+
+                            "com.apple.AppleMultitouchTrackpad" = {
+                              TrackpadThreeFingerHorizSwipeGesture = 2;
+                            };
+
+                            "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+                              TrackpadThreeFingerHorizSwipeGesture = 2;
+                            };
+                          };
+                        };
+                      };
+                    }
+                  )
+
+                  (lib.modules.mkIf
+                    (
+                      config.macos."System Settings".Trackpad."More Gestures"."Swipe between pages"
+                      == "Swipe with Three Fingers"
+                    )
+                    {
+                      targets = {
+                        darwin = {
+                          currentHostDefaults = {
+                            NSGlobalDomain = {
+                              "com.apple.trackpad.threeFingerHorizSwipeGesture" = 1;
+                            };
+                          };
+
+                          defaults = {
+                            NSGlobalDomain = {
+                              AppleEnableSwipeNavigateWithScrolls = 0;
+                            };
+
+                            "com.apple.AppleMultitouchTrackpad" = {
+                              TrackpadThreeFingerHorizSwipeGesture = 1;
+                            };
+
+                            "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+                              TrackpadThreeFingerHorizSwipeGesture = 1;
+                            };
+                          };
+                        };
+                      };
+                    }
+                  )
+
+                  (lib.modules.mkIf
+                    (
+                      config.macos."System Settings".Trackpad."More Gestures"."Swipe between pages"
+                      == "Swipe with Two or Three Fingers"
+                    )
+                    {
+                      targets = {
+                        darwin = {
+                          currentHostDefaults = {
+                            NSGlobalDomain = {
+                              "com.apple.trackpad.threeFingerHorizSwipeGesture" = 1;
+                            };
+                          };
+
+                          defaults = {
+                            NSGlobalDomain = {
+                              AppleEnableSwipeNavigateWithScrolls = 1;
+                            };
+
+                            "com.apple.AppleMultitouchTrackpad" = {
+                              TrackpadThreeFingerHorizSwipeGesture = 1;
+                            };
+
+                            "com.apple.driver.AppleBluetoothMultitouch.trackpad" = {
+                              TrackpadThreeFingerHorizSwipeGesture = 1;
+                            };
+                          };
+                        };
+                      };
+                    }
+                  )
+                ]
+              ))
+
               (lib.modules.mkIf config.macos."System Settings".Trackpad."Point & Click".enable (
                 lib.modules.mkMerge [
                   (lib.modules.mkIf
@@ -433,6 +562,23 @@
         Trackpad = {
           enable = lib.options.mkEnableOption "Trackpad" // {
             default = config.macos."System Settings".enable;
+          };
+
+          "More Gestures" = {
+            enable = lib.options.mkEnableOption "More Gestures" // {
+              default = config.macos."System Settings".Trackpad.enable;
+            };
+
+            "Swipe between pages" = lib.options.mkOption {
+              default = "Off";
+
+              type = lib.types.enum [
+                "Off"
+                "Scroll Left or Right with Two Fingers"
+                "Swipe with Three Fingers"
+                "Swipe with Two or Three Fingers"
+              ];
+            };
           };
 
           "Point & Click" = {
