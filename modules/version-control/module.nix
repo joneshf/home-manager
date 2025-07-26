@@ -125,6 +125,14 @@
                 package = config.version-control.jujutsu.package;
 
                 settings = {
+                  git = {
+                    private-commits = "private()";
+                  };
+
+                  revset-aliases = {
+                    "private()" = "description(regex:'^\\[PRIVATE\\].*')";
+                  };
+
                   templates = {
                     draft_commit_description = ''
                       concat(
