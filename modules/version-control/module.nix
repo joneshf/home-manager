@@ -133,6 +133,41 @@
                     "private()" = "description(regex:'^\\[PRIVATE\\].*')";
                   };
 
+                  template-aliases = {
+                    # The suffix is everything after any prefix that might exist.
+                    # All non-word characters are replaced with `-`s,
+                    # and then cleaned up:
+                    # - No consecutive `-`s.
+                    # - No `-`s at the start or end.
+                    "first_line_suffix(description)" = ''
+                      description
+                        .first_line()
+                        .remove_prefix(jira_issue_prefix(description))
+                        .remove_prefix(team_name_prefix(description))
+                        .lower()
+                        .replace(regex:"[[:^word:]]", "-")
+                        .replace(regex:"-+", "-")
+                        .replace(regex:"^-|-$", "")
+                    '';
+
+                    # Jira Issues look like `VGI-171`.
+                    "jira_issue_prefix(description)" = ''
+                      description
+                        .match(regex:"^[[:upper:]]+-[[:digit:]]+[[:blank:]]+")
+                        .replace(regex:"[[:blank:]]+", "")
+                    '';
+
+                    # Team names by convention are all caps.
+                    # E.g. `REBELS`.
+                    "team_name_prefix(description)" = ''
+                      description
+                        .match(regex:"^[[:upper:]]+[[:blank:]]+")
+                        .replace(regex:"[[:blank:]]+", "")
+                    '';
+
+                    bookmark_user_namespace = "'${config.version-control.jujutsu.bookmark-user-namespace}'";
+                  };
+
                   templates = {
                     draft_commit_description = ''
                       concat(
@@ -144,6 +179,22 @@
                         ),
                         "\nJJ: ignore-rest\n",
                         diff.git(),
+                      )
+                    '';
+
+                    # GitHub does not support branch names longer than 244 bytes: https://stackoverflow.com/a/77347494.
+                    git_push_bookmark = ''
+                      truncate_end(
+                        244,
+                        separate(
+                          "/",
+                          bookmark_user_namespace,
+                          coalesce(
+                            jira_issue_prefix(description),
+                            team_name_prefix(description),
+                          ),
+                          first_line_suffix(description),
+                        ),
                       )
                     '';
                   };
@@ -306,6 +357,12 @@
       };
 
       jujutsu = {
+        bookmark-user-namespace = lib.options.mkOption {
+          default = config.version-control.username;
+          description = "The prefix to use to prefix bookmarks into a \"namespace\".";
+          type = lib.types.str;
+        };
+
         enable = lib.options.mkEnableOption "jujutsu" // {
           default = config.version-control.enable;
         };
