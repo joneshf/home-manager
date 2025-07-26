@@ -186,6 +186,20 @@
             };
           }
 
+          (lib.modules.mkIf config.editors.vscode.extensions.golang.Go.enable {
+            programs = {
+              vscode = {
+                profiles = {
+                  home-manager = {
+                    extensions = [
+                      config.editors.vscode.extensions.golang.Go.package
+                    ];
+                  };
+                };
+              };
+            };
+          })
+
           (lib.modules.mkIf config.editors.vscode.extensions.jnoortheen.nix-ide.enable {
             programs = {
               vscode = {
@@ -300,6 +314,20 @@
         };
 
         extensions = {
+          golang = {
+            Go = {
+              enable = lib.options.mkEnableOption "golang.Go extension" // {
+                default = config.editors.vscode.enable;
+              };
+
+              package = pkgs.callPackage ../../lib/mk-package-option.nix { } pkgs [
+                "vscode-extensions"
+                "golang"
+                "go"
+              ] { };
+            };
+          };
+
           jnoortheen = {
             nix-ide = {
               enable = lib.options.mkEnableOption "jnoortheen.nix-ide extension" // {
