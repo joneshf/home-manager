@@ -182,6 +182,12 @@
                             args = [ "simplify-parents" ];
                           };
                         };
+
+                        ui = {
+                          tracer = {
+                            enabled = true;
+                          };
+                        };
                       };
                     };
                   };
