@@ -311,6 +311,12 @@
 
     enable = true;
 
+    jujutsu = {
+      jjui = {
+        package = pkgs.jjui.jjui;
+      };
+    };
+
     ssh-public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFUE+CV+yYgdxd391DI/cBlb6QE50pu+i3XYia9IsuUH";
 
     username = "joneshf";
