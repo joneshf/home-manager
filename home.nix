@@ -64,7 +64,21 @@
       pkgs.pdfchain
       pkgs.pdftk
       pkgs.pv-migrate
-      pkgs.python312Packages.python-vipaccess
+      (pkgs.python312Packages.python-vipaccess.overridePythonAttrs {
+        # The upstream derivation has out-of-date exclusions.
+        # It wants to make sure no test that require network are running,
+        # but the naming of tests changed in https://github.com/dlenski/python-vipaccess/commit/cc4366f7bce41d5ebce64ae8d86cc71e5eda5703.
+        #
+        # This is a real issue now because `pytest` 8.4.0 has turned tests with `yield` from warnings to errors: https://github.com/pytest-dev/pytest/pull/12968.
+        # What this means in practice is that the tests for `python-vipaccess` cause `nix` to fail to build.
+        # Worse yet,
+        # `pytest` fails if it sees any tests at all with a `yield`–even if that test isn't being run.
+        #
+        # We disable the check phase entirely.
+        # This isn't ideal,
+        # but it at least gets us building again.
+        checkPhase = ":";
+      })
       pkgs.qbittorrent
       pkgs.qrencode
       pkgs.rename
@@ -82,9 +96,17 @@
       pkgs.brew-nix.discord
       pkgs.brew-nix.elgato-stream-deck
       pkgs.brew-nix.freecad
-      pkgs.brew-nix.handbrake
+      pkgs.brew-nix.handbrake-app
       pkgs.brew-nix.kicad
-      pkgs.brew-nix.krita
+      # Something about `krita` has started failing to build.
+      # There are a bunch of errors that look like this:
+      # ```
+      #  ERROR: Dangerous link via another link was ignored : krita.app/Contents/Frameworks/libkritawidgetutils.dylib : libkritawidgetutils.19.dylib
+      # ```
+      # It's not clear what that error means,
+      # and (more importantly) it's not clear how to fix it.
+      # We don't install `krita` with `nix` for now.
+      # pkgs.brew-nix.krita
       pkgs.brew-nix.makemkv
       pkgs.brew-nix.mqtt-explorer
       pkgs.brew-nix.obsidian
@@ -217,6 +239,31 @@
 
     ssh = {
       enable = true;
+
+      enableDefaultConfig = false;
+
+      matchBlocks = {
+        # These are the default values mentioned in https://github.com/nix-community/home-manager/commit/77a71380c38fb2a440b4b5881bbc839f6230e1cb.
+        "*" = {
+          addKeysToAgent = "no";
+
+          compression = false;
+
+          controlMaster = "no";
+
+          controlPath = "~/.ssh/master-%r@%n:%p";
+
+          forwardAgent = false;
+
+          hashKnownHosts = false;
+
+          serverAliveCountMax = 3;
+
+          serverAliveInterval = 0;
+
+          userKnownHostsFile = "~/.ssh/known_hosts";
+        };
+      };
     };
 
     starship = {
