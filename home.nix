@@ -42,6 +42,7 @@
       pkgs.bazel-buildtools
       pkgs.bazelisk
       pkgs.colima
+      pkgs.coreutils
       pkgs.docker-credential-helpers
       pkgs.ghostscript_headless
       pkgs.gnugrep
@@ -86,6 +87,7 @@
       pkgs.utm
       pkgs.uv
       pkgs.viddy
+      pkgs.xz
       pkgs.wireshark
       pkgs.yarn
       pkgs.yq-go
