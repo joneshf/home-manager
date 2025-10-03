@@ -110,26 +110,6 @@
       type = "github";
     };
 
-    jjui = {
-      inputs = {
-        flake-parts = {
-          follows = "flake-parts";
-        };
-
-        nixpkgs = {
-          follows = "nixpkgs";
-        };
-      };
-
-      owner = "idursun";
-
-      ref = "v0.9.3";
-
-      repo = "jjui";
-
-      type = "github";
-    };
-
     nixpkgs = {
       owner = "NixOS";
 
@@ -207,7 +187,6 @@
                     overlays = [
                       inputs.firefox-addons.overlays.default
                       overlay-brew-nix
-                      overlay-jjui
                       overlay-stable
                     ];
                   };
@@ -250,8 +229,6 @@
                   }
                 ) inputs.brew-nix.outputs.packages.${final.system};
               };
-
-              overlay-jjui = final: _prev: { jjui = inputs.jjui.outputs.packages.${final.system}; };
 
               overlay-stable = _final: prev: { stable = prev.callPackage inputs.nixpkgs-stable { }; };
             in
